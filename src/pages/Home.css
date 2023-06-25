@@ -1,0 +1,109 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .home__header {
+    display: flex;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    z-index: 100;
+    align-items: flex-start;
+    padding: 30px;
+    border-bottom: 1px solid lightgray;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .home__header a {
+    margin-right: 20px;
+    text-decoration: inherit;
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 15px;
+  }
+  
+  .home__header a:hover {
+    text-decoration: underline;
+  }
+  
+  .home__headerRight {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 13vw;
+  }
+  
+  .home__headerRight > .MuiSvgIcon-root {
+    margin-right: 20px;
+  }
+  
+  .home__body {
+    flex: 1;
+    display: flex;
+    margin-top: 10%;
+    flex-direction: column;
+  }
+  
+  .home__body > img {
+    object-fit: contain;
+    height: 33px;
+  }
+
+  .home__body > h1 {
+    font-size: 50px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .home__inputContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .home__footer {
+    display: block;
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+  .home__footerBody{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 40px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    color: white;
+    background:black;
+    position: relative; 
+    bottom:0;
+  }
+  .home__footerLeft {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-width: 13vw;
+  }
+  .home__footerRight {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-width: 13vw;
+  }
+  .home__footerLeft > a {
+    color: white;
+    margin-right: 20px;
+  }
+  @media screen and (max-width: 750px) {
+  
+  .search {
+      max-width: 560px;
+  }
+  .home__body > img {
+    object-fit: contain;
+    height: 70px;
+  }
+  
+  }
