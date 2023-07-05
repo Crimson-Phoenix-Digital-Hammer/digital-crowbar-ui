@@ -17,7 +17,6 @@
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
-  "homepage": "http://amoody8.github.io/google-clone",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && cp build/index.html build/404.html",
