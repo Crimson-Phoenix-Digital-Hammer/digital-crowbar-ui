@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './Search.css'
 import SearchIcon from '@mui/icons-material/Search'
-import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
-//import MicIcon from '@mui/icons-material/Mic'
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'
 import { Button } from '@mui/material'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
@@ -22,7 +21,7 @@ function Search({ hideButtons = false }) {
             term: term,
           });
 
-        navigate('/search')
+        navigate('/search?q=' + term)
     }
     
     return (

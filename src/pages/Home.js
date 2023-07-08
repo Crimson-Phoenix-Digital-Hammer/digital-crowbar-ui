@@ -1,8 +1,6 @@
 import React from 'react'
 import './Home.css'
-// import { Avatar } from '@mui/material'
 import { Link } from 'react-router-dom'
-// import AppsIcon from '@mui/icons-material/Apps'
 import Search from '../components/Search'
 import logo from '../assets/images/digital-crowbar-logo-lg.png'
 import footerlogo from '../assets/images/crimson-phoenix-logo-footer.png'
@@ -20,7 +18,6 @@ function Home() {
 
       <div className="home__body">
         <img src={logo} alt="" />
-        {/* <h1>Digital Crowbar</h1> */}
         <div className="home__inputContainer">
           <Search />
         </div>

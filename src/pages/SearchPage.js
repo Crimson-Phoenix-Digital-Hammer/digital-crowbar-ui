@@ -7,8 +7,6 @@ import Search from '../components/Search';
 // import SearchIcon from '@mui/icons-material/Search';
 import DescriptionIcon from '@mui/icons-material/Description';
 import ImageIcon from '@mui/icons-material/Image';
-// import LocalOfferIcon from '@mui/icons-material/LocalOffer';
-// import RoomIcon from '@mui/icons-material/Room';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import logo from '../assets/images/digital-crowbar-logo-sm.png';
 
@@ -36,15 +34,15 @@ function SearchPage() {
               <div className="searchPage__optionsLeft">
                 <div className="searchPage__option">
                   <DescriptionIcon />
-                  <Link to="/all">Obfuscate Search</Link>
+                  <Link to="/search">Obfuscate Search</Link>
                 </div>
                 <div className="searchPage__option">
                   <ImageIcon />
-                  <Link to="/news">Image Search</Link>
+                  <Link to="/image-search">Image Search</Link>
                 </div>
                 <div className="searchPage__option">
                   <MoreVertIcon />
-                  <Link to="/images">Recent Searches</Link>
+                  <Link to="/recent-searches">Recent Searches</Link>
                 </div>
               </div>
   
