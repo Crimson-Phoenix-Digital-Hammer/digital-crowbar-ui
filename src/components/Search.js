@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import './Search.css'
 import SearchIcon from '@mui/icons-material/Search'
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'
@@ -33,7 +33,7 @@ function Search({ hideButtons = false }) {
         </div>
         {!hideButtons ? (
         <div className="search__buttons">
-          <Button onClick={search} type="submit" variant="outlined">
+          <Button className='primary-btn' component={Link} to="/alternatives" type="submit" variant="outlined">
             Obfuscate
           </Button>
           <Button variant="outlined">Obfuscate & Search</Button>

@@ -10,9 +10,9 @@ function Home() {
     <div className="home">
       <div className="home__header">
         <div className="home__headerLeft">
-          <Link to="/about">Obfuscated Search</Link>
-          <Link to="/store">Image Search</Link>
-          <Link to="/gmail">Recent Searches</Link>
+          <Link to="/alternatives">Obfuscated Search</Link>
+          <Link to="/image-search">Image Search</Link>
+          <Link to="/recent-searches">Recent Searches</Link>
         </div>
       </div>
 

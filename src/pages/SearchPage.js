@@ -5,9 +5,10 @@ import useGoogleSearch from '../components/useGoogleSearch';
 import { Link } from 'react-router-dom';
 import Search from '../components/Search';
 // import SearchIcon from '@mui/icons-material/Search';
-import DescriptionIcon from '@mui/icons-material/Description';
-import ImageIcon from '@mui/icons-material/Image';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
+import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined';
+import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined';
+// import MoreVertIcon from '@mui/icons-material/MoreVert';
 import logo from '../assets/images/digital-crowbar-logo-sm.png';
 
 function SearchPage() {
@@ -33,15 +34,15 @@ function SearchPage() {
             <div className="searchPage__options">
               <div className="searchPage__optionsLeft">
                 <div className="searchPage__option">
-                  <DescriptionIcon />
+                  <DescriptionOutlinedIcon />
                   <Link to="/search">Obfuscate Search</Link>
                 </div>
                 <div className="searchPage__option">
-                  <ImageIcon />
+                  <ImageOutlinedIcon />
                   <Link to="/image-search">Image Search</Link>
                 </div>
                 <div className="searchPage__option">
-                  <MoreVertIcon />
+                  <HistoryOutlinedIcon />
                   <Link to="/recent-searches">Recent Searches</Link>
                 </div>
               </div>
