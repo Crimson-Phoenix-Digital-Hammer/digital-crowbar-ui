@@ -1,22 +1,33 @@
 .checks{
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
-    max-width: 500px;
+    min-width: 500px;
     margin:0 auto;
 }
 .checks .check {
     margin-top: 1em;
+}
+
+.checks form {
+    display: flex;
+    flex-direction: column;
+}
+.checks form button.action {
+    margin-top:50px;
 }
 .checks .form-control {
     font-family: system-ui, sans-serif;
     font-size: 1.5rem;
     font-weight: normal;
     line-height: 1.1;
-    display: grid;
-    grid-template-columns: 1em auto;
-    gap: 0.5em;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.checks .form-control input {
+    margin-right: 20px
+}
+.checks .form-control span,
+.checks .form-control button {
+    margin-left: 20px
 }
 .checks input[type="checkbox"] {
     /* Add if not using autoprefixer */
@@ -30,19 +41,26 @@
 .checks input[type="checkbox"] {
     appearance: none;
     background-color: #fff;
-    margin: 0;
     font: inherit;
     color: #720000;
-    width: 1.15em;
-    height: 1.15em;
+    width: 1em;
+    height: 1em;
     border: 0.07em solid #555;
     border-radius: 50%;
-    transform: translateY(-0.075em);
+    transform: translateY(0);
+    /* transform: translateY(-0.075em); */
 }
 
-/* div > .form-control + div > .form-control {
-    margin-top: 3em;
-} */
+.check form input[type="text"] {
+    display:block;
+    padding:10px 5px;
+    font-size: 1.5rem;
+    outline:none;  
+    box-shadow:none;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width:100%
+}
 
 input[type="checkbox"] {
     /* ...existing styles */
@@ -57,44 +75,54 @@ input[type="checkbox"]::before {
     transform: scale(0);
     transition: 120ms transform ease-in-out;
     box-shadow: inset 1em 1em #720000;
-    border-radius: 50%
+    border-radius: 50%;
+    transform-origin: center center;
 }
 
 input[type="checkbox"]:checked::before {
     transform: scale(1);
 }
 
-input[type="checkbox"]::before {
-    /* ...existing styles */
-
-    /* Windows High Contrast Mode */
-    background-color: CanvasText;
-}
-
-input[type="checkbox"]::before {
-    /* ...existing styles */
-
-    transform-origin: center center;
-    /* clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); */
-}
-
-/* input[type="checkbox"]:focus {
-    outline: max(2px, 0.15em) solid currentColor;
-    outline-offset: max(2px, 0.15em);
-} */
-
-.checks button {
+.checks button.search {
     margin: 50px auto;
     display: block;
     background-color: #720000;
     color: #fff;
-    border: 1px solid #000;
-    width: 170px;
+    border: 1px solid #720000;
     padding: 10px 20px;
+    width: 170px;
 }
 
-.checks button:hover {
+.checks button.search:hover {
     background-color: #fff;
     color: #720000;
     border: 1px solid #720000;
+    cursor: pointer;
+}
+
+button.action {
+    /* display: block; */
+    background-color: transparent;
+    color: #333;
+    border: 1px solid transparent;
+}
+
+button.action:hover {
+    background-color: #fff;
+    color: #720000;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+button.action-add {
+    background-color: transparent;
+    color: #333;
+    border: 1px solid transparent;
+    text-align: center;
+}
+.checks button:hover {
+    background-color: #fff;
+    color: #720000;
+    border: 1px solid transparent;
+    cursor: pointer;
 }
