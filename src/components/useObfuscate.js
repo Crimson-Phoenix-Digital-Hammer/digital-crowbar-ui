@@ -5,16 +5,14 @@ const useObfuscate = (term) => {
     useEffect(() => {
       const fetchData = async () => {
         fetch(
-          'http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_text_query/', {
+          'http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_text_query', {
             method: 'POST',
+            // credentials: 'include',
             headers: {
                 'accept': 'application/json',
                 'Content-Type': 'application/json'
               },
-            body: JSON.stringify({
-            "query_text": `${term}`,
-            "number_of_suggestions": 5
-            })
+            body: JSON.stringify({query_text: term, number_of_suggestions: 5})
           }
         )
           .then((response) => response.json())

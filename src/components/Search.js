@@ -42,10 +42,10 @@ function Search({ hideButtons = false }) {
   }
     
     return (
-      <form className="search">
+      <form onSubmit={obfuscate} className="search">
         <div className="search__input">
             <SearchIcon className="search__inputIcon" />
-            <input value={term} onChange={(e) => setTerm(e.target.value)} />
+            <input type='text' value={term} onChange={(e) => setTerm(e.target.value)} />
             <CameraAltOutlinedIcon className="search__inputIcon" />
         </div>
         {!hideButtons ? (
