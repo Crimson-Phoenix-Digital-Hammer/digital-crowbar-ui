@@ -75,7 +75,7 @@ function Choices() {
         setChoice("");
     }
     
-    function removeCheckbox(id) {
+    const removeCheckbox = (id) => {
         const updatedCheckboxes = [...choices].filter((choice) => choice.id !== id);
         setChoices(updatedCheckboxes);
     }
@@ -93,28 +93,19 @@ function Choices() {
                         checked={done}
                     />
                     <span>{choice}</span>
-                    <button className='action' onClick={() => removeCheckbox(choice.id)}><ClearOutlinedIcon /></button>
+                    <button className='action' onClick={() => removeCheckbox(id)}><ClearOutlinedIcon /></button>
                 </label>
             </div>
         ))}
         <div className='check'>
             <form onSubmit={handleSubmit}>
                 <input type='text' value={choice} onChange={(e) => setChoice(e.target.value)} /> 
-                <button className='action-add' type="submit" onClick={addCheckbox}><AddCircleOutlineOutlinedIcon fontSize='large' /></button>
+                <button className='action-add' type="submit" onClick={addCheckbox}><AddCircleOutlineOutlinedIcon /></button>
             </form>
 
             
         </div>
-        {/* <h3>Checked items: {choices.filter((choice) => choice.done).length}</h3> */}
-        {/* <textarea
-                className="form-control text"
-                name="response"
-                value={choices.filter((choice) => choice.done).map((choice) => choice.choice).join('\, ')}
-                placeholder="The checkbox values will be displayed here "
-                id="floatingTextarea2"
-                style={{ height: "150px" }}
-                onChange={handleChange}
-              ></textarea> */}
+
         <Button className='search' onClick={obfuscate} type="submit" variant="outlined">Search</Button>
     </div>
   )

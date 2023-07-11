@@ -119,6 +119,7 @@ button.action-add {
     color: #333;
     border: 1px solid transparent;
     text-align: center;
+    margin-top: 20px;
 }
 .checks button:hover {
     background-color: #fff;
