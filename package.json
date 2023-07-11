@@ -24,7 +24,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   }, 
-  "homepage": "https://amoody8.github.io/digital-crowbar-ui",
+  "homepage": "https://crimson-phoenix-digital-hammer.github.io/",
   "eslintConfig": {
     "extends": [
       "react-app",
