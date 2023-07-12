@@ -7,19 +7,23 @@ import { Link, useNavigate } from 'react-router-dom'
 import './Choices.css'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
+import useObfuscate from './useObfuscate'
 
 function Choices() {
     const [{ term }, dispatch] = useStateValue();
+    
     const [choices, setChoices] = useState([
         { id: new Date().getTime(), choice: term, done: false },
     ])
     const [choice, setChoice] = useState("")
 
+    // const [checkboxes, setCheckboxes] = useStateValue()
 
     // const [{}, dispatch] = useStateValue()
     // const [term, setTerm] = useState("")
     const navigate = useNavigate()
-    // const { data } = useGoogleSearch(term)
+    const { data } = useObfuscate(term)
+    console.log(data)
 
     const handleChange = (done, i) => {
         let tmp = choices[i];
@@ -54,14 +58,6 @@ function Choices() {
         // ))}
         //navigate('/search?q=' + example)
     }
-
-    const addCheckbox = () => {
-        console.log("You hit the add button")
-    }
-
-    // useEffect(() => {
-    //     console.log("Choices: ", choices)
-    // })
 
     function handleSubmit(e) {
         e.preventDefault();
@@ -100,7 +96,7 @@ function Choices() {
         <div className='check'>
             <form onSubmit={handleSubmit}>
                 <input type='text' value={choice} onChange={(e) => setChoice(e.target.value)} /> 
-                <button className='action-add' type="submit" onClick={addCheckbox}><AddCircleOutlineOutlinedIcon /></button>
+                <button className='action-add' type="submit"><AddCircleOutlineOutlinedIcon /></button>
             </form>
 
             

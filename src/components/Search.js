@@ -6,14 +6,14 @@ import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'
 import { Button } from '@mui/material'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
-import useObfuscate from './useObfuscate'
+// import useObfuscate from './useObfuscate'
 
 function Search({ hideButtons = false }) {
     const [{}, dispatch] = useStateValue()
     const [term, setTerm] = useState("")
 
-    const { data } = useObfuscate(term)
-    console.log(data)
+    // const { data } = useObfuscate(term)
+    // console.log(data)
 
     const navigate = useNavigate()
 
@@ -59,7 +59,7 @@ function Search({ hideButtons = false }) {
         <div className="search__buttons">
           <Button
             className="search__buttonsHidden"
-            onClick={search}
+            onClick={obfuscate}
             type="submit"
             variant="outlined"
           >
