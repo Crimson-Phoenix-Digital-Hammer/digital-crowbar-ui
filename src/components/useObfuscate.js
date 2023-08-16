@@ -4,7 +4,7 @@ import { actionTypes } from './reducer'
 
 const useObfuscate = (term) => {
     const [data, SetData] = useState(null)
-    // const [{}, dispatch] = useStateValue()
+    
     useEffect(() => {
       const fetchData = async () => {
         fetch(
@@ -30,12 +30,7 @@ const useObfuscate = (term) => {
   
       fetchData();
     }, [term]);
-
-    // dispatch({
-    //     type: actionTypes.SET_SEARCH_TERM,
-    //     term: data,
-    // })
-
+    
   return { data }
 }
 

@@ -7,6 +7,7 @@ import RecentSearches from './pages/RecentSearches';
 import ImgSearch from './pages/ImageSearch';
 import UserSettings from './pages/Settings';
 import AppTools from './pages/Tools';
+import GenerateImg from './components/GenerateImg';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/alternatives" element={<Alternatives />} />
           <Route path="/recent-searches" element={<RecentSearches />} />
           <Route path="/image-search" element={<ImgSearch />} />
+          <Route path="/image-search/generate-image" element={<GenerateImg />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/" element={<Home />} />
         </Routes>

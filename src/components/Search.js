@@ -40,6 +40,12 @@ function Search({ hideButtons = false }) {
       console.log("term: ", term);
       navigate('/alternatives?q=' + term)
   }
+
+  // const ImageSearch = (e) => { 
+  //   e.preventDefault()
+  //   const [showImageSearch, setShowImageSearch] = useState(false)
+  //   setShowImageSearch(true)
+  // }
     
     return (
       <form onSubmit={obfuscate} className="search">
