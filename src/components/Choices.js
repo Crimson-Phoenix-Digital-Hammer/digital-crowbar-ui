@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
-import { Link, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 // import useGoogleSearch from '../components/useGoogleSearch'
 import './Choices.css'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
 import useObfuscate from './useObfuscate'
+import useGoogleSearch from './useGoogleSearch'
 
 function Choices() {
     const [{ term }, dispatch] = useStateValue();
@@ -19,7 +20,7 @@ function Choices() {
     const navigate = useNavigate()
 
     
-    const { data } = useObfuscate(term)
+    const { data } = useObfuscate(term) 
     console.log(data)
     const opts = data?.obfuscated_queries
 
@@ -38,9 +39,12 @@ function Choices() {
         setChoices([...choicesClone]);
     }
 
+    const { strings } = useGoogleSearch(term)
+
     const obfuscate = (e) => {
         e.preventDefault()
         console.log("You hit the obfuscate button")
+        
 
         let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
 
@@ -49,10 +53,19 @@ function Choices() {
                 type: actionTypes.SET_SEARCH_TERM,
                 term: example
             })
-            navigate(`/search?q=${example}`) 
-            // var newRoute = '/search?q=' + example;
+            // navigate(`/search?q=${example}`) 
+            const newRoute = '/search?q=' + example;
             // window.open(`${window.location.origin}${newRoute}`, '_blank')
+
+            // const string = { key: example };
+            // const queryParams = new URLSearchParams(data).toString();
+            // const newTabUrl = `${newRoute}${queryParams}`;
+
+            // console.log(queryParams)
+            
+            //window.open(newRoute, '_blank');
         })
+
         // let t1 = []
         terms.forEach((example) => {
             //let url = navigate('/search?q=' + example)

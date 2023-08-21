@@ -15,17 +15,6 @@ export const uploadFile = (file, onUploadProgress) => {
 }
 
 export const obfuscateImg = (prompt, negative, strength, file) => {
-    // let formData = new FormData()
-    // formData.append("file", file)
-    
-    // return fetch("http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_image_query/clip_interrogation", {
-    //     method: "POST",
-    //     body: formData,
-    //     // headers: {
-    //     //     "Content-Type": "multipart/form-data",
-    //     // },
-    //     // onUploadProgress,
-    // })
     let formData = new FormData()
     formData.append("prompt", prompt)
     formData.append("negative_prompt", negative)
