@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../digital-crowbar-logo-sm.png'
 import Search from './Search'
@@ -6,10 +6,22 @@ import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'
 import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined'
 
-function Header() {
+function Header(props) {
+  const [view, setView] = useState('primary')
+  //setView(props.view);
+  //console.log(view);
   return (
     <div>
-         <div className="searchPage__header">
+      {view === 'primary' ? (
+        <div className="home__header">
+          <div className="home__headerLeft">
+            <Link to="/alternatives">Obfuscated Search</Link>
+            <Link to="/image-search">Image Search</Link>
+            <Link to="/recent-searches">Recent Searches</Link>
+          </div>
+        </div>
+    ) : (
+      <div className="searchPage__header">
           <Link to="/">
             <img
               className="searchPage__logo"
@@ -47,7 +59,9 @@ function Header() {
             </div>
           </div>
         </div>
+    )}
     </div>
+    
   )
 }
 

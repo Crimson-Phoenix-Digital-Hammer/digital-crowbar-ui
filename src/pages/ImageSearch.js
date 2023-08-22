@@ -8,11 +8,11 @@ import UploadFiles from '../components/FileUpload'
 import Header from '../components/Header'
 
 function ImageSearch() {
-  const [images, setImages] = useState([])
+  // const [images, setImages] = useState([])
 
   return (
     <div className="searchPage">
-      <Header />
+      <Header view="secondary" />
 
       <div className="home__body">
         <img src={logo} alt="" />

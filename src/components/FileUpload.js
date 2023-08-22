@@ -131,8 +131,19 @@ const UploadFiles = () => {
                                     { selectedFiles && selectedFiles[0].name}
                                 </div>): (
                                     <div className='img-upload'>
-                                        <PhotoLibraryOutlinedIcon fontSize='large'/>
-                                        <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
+                                        <div className='img-upload'>
+                                            {loading ? (
+                                                <div className='loading-spinner'>
+                                                    <CircularProgress size={50} />
+                                                    <p>Uploading...</p>
+                                                </div>
+                                            ) : (
+                                                <>
+                                                    <PhotoLibraryOutlinedIcon fontSize='large'/>
+                                                    <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
+                                                </>
+                                            )}
+                                        </div>
                                     </div>
                                 )}
                         </div>
@@ -188,8 +199,17 @@ const UploadFiles = () => {
                     
                     <div className='v-rule'></div>
                     <div className='gen-img'>
-                    <h1>Alternative Image</h1>
-                        {altImg.length > 0 ? <img src={altImg} alt="image" /> : '' }
+                        {!altImg ? (
+                            <div className='loading-spinner'>
+                                <CircularProgress size={50} />
+                                <p>Generating alternative image...</p>
+                            </div>
+                        ) : (
+                            <>
+                                <h1>Alternative Image</h1>
+                                <img src={altImg} alt="alternative" />
+                            </>
+                        )}
                     </div>
                 </section>
                 )}

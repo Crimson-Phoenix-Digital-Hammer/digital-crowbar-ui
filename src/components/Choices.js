@@ -9,27 +9,34 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
 import useObfuscate from './useObfuscate'
 import useGoogleSearch from './useGoogleSearch'
+import { nanoid } from 'nanoid'
 
 function Choices() {
     const [{ term }, dispatch] = useStateValue();
     
     const [choices, setChoices] = useState([
-        { id: new Date().getTime(), choice: term, done: false },
+        { id: nanoid(), choice: term, done: false },
     ])
     const [choice, setChoice] = useState("")
     const navigate = useNavigate()
 
+    const [searchTerms, setSearchTerms] = useState([])
     
     const { data } = useObfuscate(term) 
     console.log(data)
     const opts = data?.obfuscated_queries
+    useEffect(() => {
+        if (data) {
+            const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
+            setChoices(newChoices)
+        }
+    }, [data])
+    console.log(choices);
 
-    const [checkboxes, setCheckboxes] = useState([
-        { id: new Date().getTime(), checkbox: JSON.stringify(opts), done: false }
-    ])
-    const [checkbox, setCheckbox] = useState("")
-
-    console.log("obfuscated: ", checkboxes)
+    // const addNewChoices = choice => {
+    //     const newChoices = [...todos, { choice }]
+    //     setChoices(newChoices)
+    // }
 
     const handleChange = (done, i) => {
         let tmp = choices[i];
@@ -39,58 +46,62 @@ function Choices() {
         setChoices([...choicesClone]);
     }
 
-    const { strings } = useGoogleSearch(term)
-
     const obfuscate = (e) => {
         e.preventDefault()
         console.log("You hit the obfuscate button")
+
+        const checkedChoices = [[...choices].filter((choice) => choice.done !== false)]
+        console.log(checkedChoices);
+
+        setSearchTerms([])
         
 
-        let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
+        // let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
 
-        opts.forEach((example) => {
-            dispatch({
-                type: actionTypes.SET_SEARCH_TERM,
-                term: example
-            })
-            // navigate(`/search?q=${example}`) 
-            const newRoute = '/search?q=' + example;
-            // window.open(`${window.location.origin}${newRoute}`, '_blank')
+        // // opts.forEach((example) => {
+        // //     dispatch({
+        // //         type: actionTypes.SET_SEARCH_TERM,
+        // //         term: example
+        // //     })
+        // //     // navigate(`/search?q=${example}`) 
+        // //     const newRoute = '/search?q=' + example;
+        // //     // window.open(`${window.location.origin}${newRoute}`, '_blank')
 
-            // const string = { key: example };
-            // const queryParams = new URLSearchParams(data).toString();
-            // const newTabUrl = `${newRoute}${queryParams}`;
+        // //     // const string = { key: example };
+        // //     // const queryParams = new URLSearchParams(data).toString();
+        // //     // const newTabUrl = `${newRoute}${queryParams}`;
 
-            // console.log(queryParams)
+        // //     // console.log(queryParams)
             
-            //window.open(newRoute, '_blank');
-        })
+        // //     //window.open(newRoute, '_blank');
+        // // })
 
-        // let t1 = []
-        terms.forEach((example) => {
-            //let url = navigate('/search?q=' + example)
-            // <Link to='/search?q=' params={example} target='_blank' />
-            // let href = '/search?q=' + example
-            dispatch({
-                type: actionTypes.SET_SEARCH_TERM,
-                term: example
-            })
-            // t1.push(example);
-            // window.open(navigate('/search?q='+ example), '_blank')
-            navigate(`/search?q=${example}`) 
-        })
+        // // let t1 = []
+        // terms.forEach((example) => {
+        //     //let url = navigate('/search?q=' + example)
+        //     // <Link to='/search?q=' params={example} target='_blank' />
+        //     // let href = '/search?q=' + example
+        //     dispatch({
+        //         type: actionTypes.SET_SEARCH_TERM,
+        //         term: example
+        //     })
+        //     // t1.push(example);
+        //     // window.open(navigate('/search?q='+ example), '_blank')
+        //     navigate(`/search?q=${example}`) 
+        // })
         // console.log("Choices: ", t1)
         // {t1.map((checkbox, i) => (
         //     window.open('/search?q=' + checkbox, '_blank')
         // ))}
         //navigate('/search?q=' + example)
     }
+    console.log("Search Terms: ", searchTerms);
 
     function handleSubmit(e) {
         e.preventDefault();
     
         const newChoice = {
-            id: new Date().getTime(),
+            id: nanoid(),
             choice: choice,
             done: false
         };
@@ -105,29 +116,12 @@ function Choices() {
 
   return (
     <div className='checks'>
-        {term && (
-            <div className="obfuscated__checboxes">
-                {data?.obfuscated_queries.map((item, i) => (
-                    <div key={i} className="check">
-                        <label className='form-control' htmlFor={i}>
-                            <input 
-                                type='checkbox'
-                                id={i} 
-                                value={item}
-                            />
-                            <span>{item}</span>
-                            <button className='action' onClick={() => removeCheckbox(i)}><ClearOutlinedIcon /></button>
-                        </label>
-                    </div>
-                ))}
-            </div>
-        )}
         {choices.map(({id, choice, done}, i) => (
             <div className='check' key={i}>
                 <label className='form-control' htmlFor={i}>
                     <input 
                         type='checkbox'
-                        onChange={() => handleChange(done, i)}
+                        onChange={(e) => handleChange(done, i, e.target.value)}
                         id={id} 
                         value={choice}
                         checked={done}
