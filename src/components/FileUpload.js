@@ -153,7 +153,7 @@ const UploadFiles = () => {
                                             ) : (
                                                 <>
                                                     <PhotoLibraryOutlinedIcon fontSize='large'/>
-                                                    <p>Drag an image here or <a href='#opening-file' name='open-files'>upload a file</a></p>
+                                                    <p>Drag an image here or <span name='open-files'>upload a file</span></p>
                                                 </>
                                             )}
                                         </div>
@@ -194,7 +194,7 @@ const UploadFiles = () => {
                                         </div>): (
                                             <div className='img-upload'>
                                                 <PhotoLibraryOutlinedIcon fontSize='large'/>
-                                                <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
+                                                <p>Drag an image here or <span name='open-files'>upload a file</span></p>
                                             </div>
                                         )}
                             </div>

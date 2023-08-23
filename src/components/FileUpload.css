@@ -67,11 +67,12 @@
 .selected-file .img-container .selected-file__remove:hover {
     background: rgba(255,255,255,.75);
 }
-.img-upload a {
+.img-upload span {
     color: #720000;
     text-decoration:none;
+    cursor: pointer;
 }
-.img-upload a:hover {
+.img-upload span:hover {
     color: #720000;
     text-decoration:underline;
 }
