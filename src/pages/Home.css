@@ -111,7 +111,7 @@ body {
   }
   .home__body > img {
     object-fit: contain;
-    height: 70px;
+    height: 25px;
   }
   
   }
