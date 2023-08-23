@@ -1,7 +1,7 @@
 
 .searchPage {
   position: relative;
-  min-height: 100vh;
+  min-height: 130vh;
 }
 .searchPage__header {
     display: flex;
