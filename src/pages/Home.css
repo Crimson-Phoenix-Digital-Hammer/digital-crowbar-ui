@@ -71,7 +71,7 @@ body {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0;
-    position: absolute;
+    /* position: absolute; */
     bottom: 0;
     width: 100%;
   }
