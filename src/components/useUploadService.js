@@ -4,7 +4,7 @@ export const uploadFile = (file, onUploadProgress) => {
     let formData = new FormData()
     formData.append("file", file)
     
-    return fetch("http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_image_query/clip_interrogation", {
+    return fetch("https://api.digital-crowbar.com/obfuscate_image_query/clip_interrogation", {
         method: "POST",
         body: formData,
         // headers: {
@@ -22,7 +22,7 @@ export const obfuscateImg = (prompt, negative, strength, file) => {
     formData.append("file", file)
 
     // console.log(formData);
-    return fetch("http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_image_query/", { 
+    return fetch("https://api.digital-crowbar.com/obfuscate_image_query/", { 
         method: "POST",
         body: formData,
         // headers: {

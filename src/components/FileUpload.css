@@ -97,6 +97,21 @@
     width: 33%;
 }
 
+.src-img input[type="text"] {
+    display:block;
+    padding:10px 5px;
+    font-size: 1rem;
+    outline:none;  
+    box-shadow:none;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    width:100%;
+    margin:0 0 15px;
+    box-sizing: border-box;
+}
+.src-img textarea {
+    margin: 0 0 15px;
+}
 .v-rule {
     min-height: 50vh;
     width: 1px;

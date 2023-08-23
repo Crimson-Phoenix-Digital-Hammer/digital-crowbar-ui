@@ -8,7 +8,7 @@ const useObfuscate = (term) => {
     useEffect(() => {
       const fetchData = async () => {
         fetch(
-          'http://digital-crowbar-dev.eba-7szv7fvp.us-east-1.elasticbeanstalk.com/obfuscate_text_query', {
+          'https://api.digital-crowbar.com/obfuscate_text_query', {
             method: 'POST',
             // credentials: 'include',
             headers: {

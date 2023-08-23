@@ -1,4 +1,8 @@
 
+.searchPage {
+  position: relative;
+  min-height: 100vh;
+}
 .searchPage__header {
     display: flex;
     position: sticky;

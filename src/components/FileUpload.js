@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useRef} from 'react'
 import Dropzone, { useDropzone } from 'react-dropzone'
 import Search from './Search'
 import { Button,  CircularProgress  } from '@mui/material'
@@ -26,6 +26,7 @@ const UploadFiles = () => {
     const [prompts, setPrompts] = useState(undefined)
     const [negative, setNegative] = useState(undefined)
     const [strength, setStrength] = useState(undefined)
+    const ref = useRef(null)
 //   const navigate = useNavigate();
     
     // useEffect(() => {
@@ -80,10 +81,21 @@ const UploadFiles = () => {
 
     const [showImageSearch, setShowImageSearch] = useState(false)
     const onClick = () => setShowImageSearch(true)
+    // const handleChangePrompts = event => {
+    //     setPrompts(event.target.value)
+    // }
+    // const handleChangeNegative = event => {
+    //     setNegative(event.target.value)
+    // }
+    // const handleChangeStrength = event => {
+    //     setStrength(event.target.value)  
+    // }
 
+    const [hidden, setHidden] = useState({display: 'none'})
     const generateImg = async () => {
         try {
-          setLoading(true);
+            // console.log(ref.current.value);
+          setLoading(true)
           const currentFile = selectedFiles[0];
           const tags = prompts;
           const excluded = negative;
@@ -99,6 +111,7 @@ const UploadFiles = () => {
           const blob = await response.blob();
           if (blob.size > 0) {
             setAltImg(URL.createObjectURL(blob));
+            setHidden({display: 'block'})
           }
       
           setLoading(false);
@@ -140,7 +153,7 @@ const UploadFiles = () => {
                                             ) : (
                                                 <>
                                                     <PhotoLibraryOutlinedIcon fontSize='large'/>
-                                                    <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
+                                                    <p>Drag an image here or <a href='#opening-file' name='open-files'>upload a file</a></p>
                                                 </>
                                             )}
                                         </div>
@@ -159,56 +172,59 @@ const UploadFiles = () => {
             </Dropzone>
         : 
         <div className='generate-img'>
+            
             <Dropzone onDrop={onDrop} multiple={false} >
                 {({getRootProps, getInputProps}) => (
                 <section className='container'>
                     <div className='src-img'>
                         <h1>Source Image</h1>
                         {/* <img src={term.src} alt="image" /> */}
-                        <div {...getRootProps({className: "dropzone"})}>
-                            <input type='file' {...getInputProps()} />
-                            {selectedFiles && selectedFiles[0].name ? (
-                                    <div className='selected-file'>
-                                        <div className='img-container'>
-                                            <div className='selected-file__remove' onClick={() => setSelectedFiles(undefined)}>
-                                                <ClearOutlinedIcon fontSize='large'/>
+                        
+                            <div {...getRootProps({className: "dropzone"})}>
+                                <input type='file' {...getInputProps()} />
+                                {selectedFiles && selectedFiles[0].name ? (
+                                        <div className='selected-file'>
+                                            <div className='img-container'>
+                                                <div className='selected-file__remove' onClick={() => setSelectedFiles(undefined)}>
+                                                    <ClearOutlinedIcon fontSize='large'/>
+                                                </div>
+                                                <img src={image} />
                                             </div>
-                                            <img src={image} />
-                                        </div>
-                                        {/* { selectedFiles && selectedFiles[0].name} */}
-                                    </div>): (
-                                        <div className='img-upload'>
-                                            <PhotoLibraryOutlinedIcon fontSize='large'/>
-                                            <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
-                                        </div>
-                                    )}
-                        </div>
-                        <label htmlFor='prompt'>Prompt</label>
-                        <input name='prompt' type='text' onLoad={() => setPrompts(message)} onChange={(e) => setPrompts(e.target.value)} defaultValue={message} />
+                                            {/* { selectedFiles && selectedFiles[0].name} */}
+                                        </div>): (
+                                            <div className='img-upload'>
+                                                <PhotoLibraryOutlinedIcon fontSize='large'/>
+                                                <p>Drag an image here or <a href='#' name='open-files'>upload a file</a></p>
+                                            </div>
+                                        )}
+                            </div>
+                            <label htmlFor='prompt'>Prompt</label>
+                            <input name='prompt' type='text' onChange={(e) => setPrompts(e.target.value)} defaultValue={message} />
+                            
+                            <label htmlFor='negative'>Negative</label>
+                            <input name='negative' type='text' onChange={(e) => setNegative(e.target.value)} />
+                            
+                            <label htmlFor='strength'>Strength</label>
+                            <input name='strength' type='text' onChange={(e) => setStrength(e.target.value)} defaultValue={'0.8'} />
                         
-                        <label htmlFor='negative'>Negative</label>
-                        <input name='negative' type='text' onChange={(e) => setNegative(e.target.value)} />
-                        
-                        <label htmlFor='strength'>Strength</label>
-                        <input name='strength' type='text' onLoad={() => setStrength('0.8')} onChange={(e) => setStrength(e.target.value)} defaultValue={'0.8'} />
-                        <Button className='search' disabled={!selectedFiles || loading}  onClick={generateImg}>
-                            {loading ? <CircularProgress size={24} /> : 'Generate Image'}
+                        <Button className='search' disabled={!selectedFiles || loading} type='submit' onClick={generateImg}>
+                            {loading ? 'Generate Image' : 'Generate Image'}
                         </Button>
                     </div>
                         {/* <div className='prompts'>{term.fileInfo}</div> */}
                     
                     <div className='v-rule'></div>
                     <div className='gen-img'>
-                        {!altImg ? (
+                        {loading ? (
                             <div className='loading-spinner'>
                                 <CircularProgress size={50} />
                                 <p>Generating alternative image...</p>
                             </div>
                         ) : (
-                            <>
+                            <div style={hidden}>
                                 <h1>Alternative Image</h1>
-                                <img src={altImg} alt="alternative" />
-                            </>
+                                <img src={altImg} alt="alternative"/>
+                            </div>
                         )}
                     </div>
                 </section>

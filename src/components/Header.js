@@ -15,7 +15,7 @@ function Header(props) {
       {view === 'primary' ? (
         <div className="home__header">
           <div className="home__headerLeft">
-            <Link to="/alternatives">Obfuscated Search</Link>
+            <Link to="/">Obfuscated Search</Link>
             <Link to="/image-search">Image Search</Link>
             <Link to="/recent-searches">Recent Searches</Link>
           </div>

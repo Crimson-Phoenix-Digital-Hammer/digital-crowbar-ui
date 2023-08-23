@@ -71,6 +71,9 @@ body {
     text-align: center;
     margin-top: 10px;
     margin-bottom: 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
   .home__footerBody{
     display: flex;

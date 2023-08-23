@@ -53,10 +53,10 @@ function Choices() {
         const checkedChoices = [[...choices].filter((choice) => choice.done !== false)]
         console.log(checkedChoices);
 
-        setSearchTerms([])
+        // setSearchTerms([])
         
 
-        // let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
+        let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
 
         // // opts.forEach((example) => {
         // //     dispatch({
@@ -77,23 +77,23 @@ function Choices() {
         // // })
 
         // // let t1 = []
-        // terms.forEach((example) => {
+        terms.forEach((example) => {
         //     //let url = navigate('/search?q=' + example)
         //     // <Link to='/search?q=' params={example} target='_blank' />
         //     // let href = '/search?q=' + example
-        //     dispatch({
-        //         type: actionTypes.SET_SEARCH_TERM,
-        //         term: example
-        //     })
+            dispatch({
+                type: actionTypes.SET_SEARCH_TERM,
+                term: example
+            })
         //     // t1.push(example);
         //     // window.open(navigate('/search?q='+ example), '_blank')
-        //     navigate(`/search?q=${example}`) 
-        // })
+            navigate(`/search?q=${example}`) 
+        })
         // console.log("Choices: ", t1)
         // {t1.map((checkbox, i) => (
         //     window.open('/search?q=' + checkbox, '_blank')
         // ))}
-        //navigate('/search?q=' + example)
+        // navigate('/search?q=' + example)
     }
     console.log("Search Terms: ", searchTerms);
 
