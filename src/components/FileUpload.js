@@ -199,13 +199,13 @@ const UploadFiles = () => {
                                         )}
                             </div>
                             <label htmlFor='prompt'>Prompt</label>
-                            <input name='prompt' type='text' onChange={(e) => setPrompts(e.target.value)} defaultValue={message} />
+                            <input name='prompt' type='text' onChange={(e) => setPrompts(e.target.value)} />
                             
                             <label htmlFor='negative'>Negative</label>
                             <input name='negative' type='text' onChange={(e) => setNegative(e.target.value)} />
                             
                             <label htmlFor='strength'>Strength</label>
-                            <input name='strength' type='text' onChange={(e) => setStrength(e.target.value)} defaultValue={'0.8'} />
+                            <input name='strength' type='text' onChange={(e) => setStrength(e.target.value)} />
                         
                         <Button className='search' disabled={!selectedFiles || loading} type='submit' onClick={generateImg}>
                             {loading ? 'Generate Image' : 'Generate Image'}
