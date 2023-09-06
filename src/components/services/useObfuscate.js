@@ -1,6 +1,4 @@
 import {useState, useEffect} from 'react'
-import { useStateValue } from './StateProvider'
-import { actionTypes } from './reducer'
 
 const useObfuscate = (term) => {
     const [data, SetData] = useState(null)

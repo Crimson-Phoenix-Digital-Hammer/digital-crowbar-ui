@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, Link } from 'react-router-dom'
 // import useGoogleSearch from '../components/useGoogleSearch'
 import './Choices.css'
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
-import useObfuscate from './useObfuscate'
-import useGoogleSearch from './useGoogleSearch'
+import useObfuscate from './services/useObfuscate'
+import useGoogleSearch from './services/useGoogleSearch'
 import { nanoid } from 'nanoid'
 
 function Choices() {
@@ -28,10 +28,16 @@ function Choices() {
     useEffect(() => {
         if (data) {
             const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
-            setChoices(newChoices)
+            const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
+            setChoices(randomizeChoices)
+            // choices?.sort(() => 0.5 - Math.random());
         }
+        // return choices
     }, [data])
-    console.log(choices);
+
+    console.log("Choices: ", choices)
+    // const shuffled = choices?.sort(() => 0.5 - Math.random());
+    // console.log(choices);
 
     // const addNewChoices = choice => {
     //     const newChoices = [...todos, { choice }]
@@ -87,7 +93,8 @@ function Choices() {
             })
         //     // t1.push(example);
         //     // window.open(navigate('/search?q='+ example), '_blank')
-            navigate(`/search?q=${example}`) 
+            
+            // navigate(`/search?q=${example}`) 
         })
         // console.log("Choices: ", t1)
         // {t1.map((checkbox, i) => (
@@ -95,7 +102,7 @@ function Choices() {
         // ))}
         // navigate('/search?q=' + example)
     }
-    console.log("Search Terms: ", searchTerms);
+    //console.log("Search Terms: ", searchTerms);
 
     function handleSubmit(e) {
         e.preventDefault();

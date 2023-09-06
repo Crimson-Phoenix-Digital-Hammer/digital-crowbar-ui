@@ -6,7 +6,8 @@ import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined'
 import { Button } from '@mui/material'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
-// import useObfuscate from './useObfuscate'
+import useObfuscate from './services/useObfuscate'
+import { nanoid } from 'nanoid'
 
 function Search({ hideButtons = false }) {
     const [{}, dispatch] = useStateValue()
@@ -32,6 +33,11 @@ function Search({ hideButtons = false }) {
     const obfuscate = (e) => {
       e.preventDefault()
       console.log("You hit the search button")
+      let searchTerms = []
+
+      searchTerms = JSON.parse(localStorage.getItem("Searched Query")) || []
+      searchTerms.push({id: nanoid(), query: term})
+      
 
       dispatch({
           type: actionTypes.SET_SEARCH_TERM,
@@ -39,7 +45,12 @@ function Search({ hideButtons = false }) {
         });
       console.log("term: ", term);
       navigate('/alternatives?q=' + term)
+
+      localStorage.setItem("Searched Query", JSON.stringify(searchTerms))
   }
+
+  
+  
 
   // const ImageSearch = (e) => { 
   //   e.preventDefault()

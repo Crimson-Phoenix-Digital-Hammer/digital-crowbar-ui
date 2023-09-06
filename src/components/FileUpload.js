@@ -4,12 +4,11 @@ import Search from './Search'
 import { Button,  CircularProgress  } from '@mui/material'
 import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
-import { uploadFile } from './useUploadService'
+import { uploadFile, obfuscateImg } from './services/useUploadService'
 import './FileUpload.css'
 import { useNavigate } from 'react-router-dom'
 import { actionTypes } from './reducer'
 import { useStateValue } from './StateProvider'
-import { obfuscateImg } from './useUploadService'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 const UploadFiles = () => {
