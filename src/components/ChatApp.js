@@ -27,7 +27,7 @@ function ChatApp() {
     const requestBody = {
       system_message:
         'The user with present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query are. Respond with two elements, an array of facts in JSON form, an array of strategies in JSON form.',
-      chat_messages: [
+        chat_messages: [
         {
           role: 'user',
           content: newMessage.text,
@@ -86,12 +86,14 @@ function ChatApp() {
 
       </div>
       <div className="chat-container">
-        <div className='messages'>
-          {messages.map((message, index) => (
-            <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
-              <p>{message.text}</p>
-            </div>
-          ))}
+        <div className='messages-wrapper'>
+          <div className='messages'>
+            {messages.map((message, index) => (
+              <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
+                <p>{message.text}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <div className='chat-footer'>

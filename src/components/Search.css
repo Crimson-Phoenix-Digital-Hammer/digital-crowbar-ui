@@ -10,13 +10,17 @@
   color: rgb(128,128,128);
   box-sizing: border-box;
 }
-.search__input a {
+.search__input button {
   color: #fff;
   background-color: rgba(239, 106, 54, 1);
-  min-width: 36px;
-  min-height:40px;
+  max-width: 40px;
+  min-height: 40px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.search__input a:hover {
+.search__input button:hover {
   color: #fff;
   background-color: rgba(239, 106, 54, 0.8);
 }
@@ -73,12 +77,19 @@
   width: 20%;
   margin-left: auto!important;
 }
-
+.search-terms-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 20px auto;
+  max-width: 550px;
+}
 .checkbox-group {
   display: flex;
   flex-direction: row;
   align-items: center;
   max-width: 550px;
+  min-width: 550px;
 }
 
 @media screen and (max-width: 750px) {

@@ -78,7 +78,11 @@
     margin-top: auto;
     height: 90%;
     padding: 25px 25px 5px;
-    overflow-y: scroll;
+    overflow-y: auto;
+    display:flex;
+}
+.chat-container .messages-wrapper {
+    flex: 1;
 }
 .chat-container .messages {
     display: flex;

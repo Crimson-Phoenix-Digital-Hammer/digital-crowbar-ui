@@ -5,7 +5,7 @@ const useObfuscate = (term) => {
     
     useEffect(() => {
       const fetchData = async () => {
-        fetch(
+        await fetch(
           'https://api.digital-crowbar.com/obfuscate_text_query', {
             method: 'POST',
             // credentials: 'include',
