@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/tools" element={<AppTools />} />
           <Route path="/settings" element={<UserSettings />} />
-          <Route path="/alternatives" element={<Alternatives />} />
+          <Route path="/text-search" element={<Alternatives />} />
           <Route path="/recent-searches" element={<RecentSearches />} />
           <Route path="/image-search" element={<ImgSearch />} />
           <Route path="/image-search/generate-image" element={<GenerateImg />} />

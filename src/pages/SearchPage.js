@@ -1,7 +1,7 @@
 import React from 'react';
 import './SearchPage.css';
 import { useStateValue } from '../components/StateProvider';
-import useGoogleSearch from '../components/useGoogleSearch';
+import useGoogleSearch from '../components/services/useGoogleSearch';
 import { Link } from 'react-router-dom';
 import Search from '../components/Search';
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';

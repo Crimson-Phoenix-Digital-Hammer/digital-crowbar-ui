@@ -4,8 +4,9 @@ import Search from './Search'
 import { Button,  CircularProgress  } from '@mui/material'
 import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 import { uploadFile, obfuscateImg } from './services/useUploadService'
-import './FileUpload.css'
+import './ImageSearch.css'
 import { useNavigate } from 'react-router-dom'
 import { actionTypes } from './reducer'
 import { useStateValue } from './StateProvider'
@@ -129,7 +130,7 @@ const UploadFiles = () => {
                 {({getRootProps, getInputProps}) => (
                                 
                     <section className='dropbox'>
-                        <div className='dropbox__header'><button className='action' onClick={onClick}><ClearOutlinedIcon /></button></div>
+                        {/* <div className='dropbox__header'><button className='action' onClick={onClick}><ClearOutlinedIcon /></button></div> */}
                         <div {...getRootProps({className: "dropzone"})}>
                             <input {...getInputProps()} />
                             {selectedFiles && selectedFiles[0].name ? (
@@ -161,7 +162,7 @@ const UploadFiles = () => {
                         </div>
                         <aside className='selected-file-wrapper'>
                             <Button className='search' disabled={!selectedFiles || loading} onClick={upload} variant='outlined'>
-                                {loading ? <CircularProgress size={24} /> : 'Upload Images'}
+                                {loading ? <CircularProgress size={24} /> : <><span>Upload Image</span><FileUploadOutlinedIcon /></>}
                             </Button>
                         </aside>
                         

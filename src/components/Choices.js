@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
+import Checkbox from '@mui/material/Checkbox';
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
 import { useLocation, useNavigate, Link } from 'react-router-dom'
-// import useGoogleSearch from '../components/useGoogleSearch'
 import './Choices.css'
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
+import {AddCircleOutlineOutlined, ClearOutlined} from '@mui/icons-material'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
 import useObfuscate from './services/useObfuscate'
 import useGoogleSearch from './services/useGoogleSearch'
@@ -21,19 +21,21 @@ function Choices() {
     const navigate = useNavigate()
 
     const [searchTerms, setSearchTerms] = useState([])
+
+    const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
     
     const { data } = useObfuscate(term) 
     console.log(data)
-    const opts = data?.obfuscated_queries
-    useEffect(() => {
-        if (data) {
-            const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
-            const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
-            setChoices(randomizeChoices)
-            // choices?.sort(() => 0.5 - Math.random());
-        }
-        // return choices
-    }, [data])
+    // const opts = data?.obfuscated_queries
+    // useEffect(() => {
+    //     if (data) {
+    //         const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
+    //         const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
+    //         setChoices(randomizeChoices)
+    //         // choices?.sort(() => 0.5 - Math.random());
+    //     }
+    //     // return choices
+    // }, [data])
 
     console.log("Choices: ", choices)
     // const shuffled = choices?.sort(() => 0.5 - Math.random());
@@ -63,44 +65,16 @@ function Choices() {
         
 
         let terms = [...choices.filter((choice) => choice.done).map((choice) => choice.choice)]
-
-        // // opts.forEach((example) => {
-        // //     dispatch({
-        // //         type: actionTypes.SET_SEARCH_TERM,
-        // //         term: example
-        // //     })
-        // //     // navigate(`/search?q=${example}`) 
-        // //     const newRoute = '/search?q=' + example;
-        // //     // window.open(`${window.location.origin}${newRoute}`, '_blank')
-
-        // //     // const string = { key: example };
-        // //     // const queryParams = new URLSearchParams(data).toString();
-        // //     // const newTabUrl = `${newRoute}${queryParams}`;
-
-        // //     // console.log(queryParams)
-            
-        // //     //window.open(newRoute, '_blank');
-        // // })
-
-        // // let t1 = []
         terms.forEach((example) => {
-        //     //let url = navigate('/search?q=' + example)
-        //     // <Link to='/search?q=' params={example} target='_blank' />
-        //     // let href = '/search?q=' + example
+
             dispatch({
                 type: actionTypes.SET_SEARCH_TERM,
                 term: example
             })
-        //     // t1.push(example);
-        //     // window.open(navigate('/search?q='+ example), '_blank')
-            
-            // navigate(`/search?q=${example}`) 
+
         })
-        // console.log("Choices: ", t1)
-        // {t1.map((checkbox, i) => (
-        //     window.open('/search?q=' + checkbox, '_blank')
-        // ))}
-        // navigate('/search?q=' + example)
+
+        navigate('/search')
     }
     //console.log("Search Terms: ", searchTerms);
 
@@ -126,6 +100,7 @@ function Choices() {
         {choices.map(({id, choice, done}, i) => (
             <div className='check' key={i}>
                 <label className='form-control' htmlFor={i}>
+                
                     <input 
                         type='checkbox'
                         onChange={(e) => handleChange(done, i, e.target.value)}
@@ -134,14 +109,14 @@ function Choices() {
                         checked={done}
                     />
                     <span>{choice}</span>
-                    <button className='action' onClick={() => removeCheckbox(id)}><ClearOutlinedIcon /></button>
+                    <button className='action' onClick={() => removeCheckbox(id)}><ClearOutlined /></button>
                 </label>
             </div>
         ))}
         <div className='check'>
             <form onSubmit={handleSubmit}>
                 <input type='text' value={choice} onChange={(e) => setChoice(e.target.value)} /> 
-                <button className='action-add' type="submit"><AddCircleOutlineOutlinedIcon /></button>
+                <button className='action-add' type="submit"><AddCircleOutlineOutlined /></button>
             </form>
 
             

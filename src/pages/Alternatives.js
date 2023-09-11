@@ -1,78 +1,62 @@
 import React from 'react'
-import './Alternatives.css'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
+import { Container, Divider, Grid, Paper } from '@mui/material'
+import { ModeCommentOutlined, NotesOutlined, PhotoOutlined, BarChartOutlined, SettingsOutlined, HelpCenterOutlined, LogoutOutlined } from '@mui/icons-material'
+import { styled } from '@mui/material/styles'
+import logo from '../assets/images/dc-logo.png'
 import Search from '../components/Search'
-import logo from '../assets/images/digital-crowbar-logo-lg.png'
-import footerlogo from '../assets/images/crimson-phoenix-logo-footer.png'
 import Choices from '../components/Choices'
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
-import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'
-import HistoryOutlinedIcon from '@mui/icons-material/HistoryOutlined'
+import {DescriptionOutlined, ImageOutlined,HistoryOutlined} from '@mui/icons-material/DescriptionOutlined'
+import QueryHistory from '../components/QueryHistory'
 
 function Alternatives() {
   return (
-    <div className='alts'>
-        
-        <div className="searchPage__header">
-          <Link to="/">
-            <img
-              className="searchPage__logo"
-              src={logo}
-              alt=""
-            />
-          </Link>
-  
-          <div className="searchPage__headerBody">
-            <Search hideButtons />
-            <div className="searchPage__options">
-              <div className="searchPage__optionsLeft">
-                <div className="searchPage__option">
-                  <DescriptionOutlinedIcon />
-                  <Link to="/search">Obfuscate Search</Link>
-                </div>
-                <div className="searchPage__option">
-                  <ImageOutlinedIcon />
-                  <Link to="/image-search">Image Search</Link>
-                </div>
-                <div className="searchPage__option">
-                  <HistoryOutlinedIcon />
-                  <Link to="/recent-searches">Recent Searches</Link>
-                </div>
-              </div>
-  
-              <div className="searchPage__optionsRight">
-                <div className="searchPage__option">
-                  <Link to="/settings">Settings</Link>
-                </div>
-                <div className="searchPage__option">
-                  <Link to="/tools">Tools</Link>
-                </div>
-              </div>
-            </div>
+    <Grid container spacing={2}>
+      <Grid item md={3} xs={12}>
+        <div className='main-menu'>
+          <div className="logo">
+            <img src={logo} alt="" />
           </div>
+          <nav>
+            <ul>
+              <li>
+                <NavLink to="/"><ModeCommentOutlined fontSize='large' /><span>AI Obfuscation Helper</span></NavLink>
+              </li>
+              <li>
+                <NavLink to="/text-search"><NotesOutlined fontSize='large' /><span>Text Search</span></NavLink>
+              </li>
+              <li>
+                <NavLink to="/image-search"><PhotoOutlined fontSize='large' /><span>Image Search</span></NavLink>
+              </li>
+              <li>
+                <NavLink to="/stats"><BarChartOutlined fontSize='large' /><span>Statistics</span></NavLink>
+              </li>
+              <li>
+                <NavLink to="/settings"><SettingsOutlined fontSize='large' /><span>Settings</span></NavLink>
+              </li>
+              <li>
+                <NavLink to="/updates-and-faq"><HelpCenterOutlined fontSize='large' /><span>Updates & FAQ</span></NavLink>
+              </li>
+            </ul>
+          </nav>
+          <footer className='sidebar-footer'>
+            <Divider light={true} />
+            <Link to="/log-out"><span>Log Out</span><LogoutOutlined fontSize='large' /></Link>
+          </footer>
         </div>
-
-      <div className="alts__body">
-        <h1>Alternatives</h1>
-        <div className="alts__inputContainer">
-            <Choices />
+      </Grid>
+      <Grid item md={9} xs={12}>
+        <div className='main-content'>
+          <Search hideButtons />
+          {/* <Choices /> */}
         </div>
-      </div>
-
-      <div className="alts__footer">
-        <Link to="https://crimsonphoenix.com"><img className='footer-logo' src={footerlogo} /></Link>
-        <div className="alts__footerBody">
-            <div className="alts__footerLeft">
-                <Link to="https://crimsonphoenix.com/about">About Crimsom Phoenix</Link>
-                <Link to="/">How Digital Crowbar Works</Link>
-            </div>
-            <div className="alts__footerRight">
-                © 2023 Crimson Phoenix, All rights reserved.
-            </div>
+      </Grid>
+      {/* <Grid item md={2} xs={12}>
+        <div className='chat-history'>
+          <QueryHistory />
         </div>
-      </div>
-    </div>
-    
+      </Grid> */}
+    </Grid>
   )
 }
 
