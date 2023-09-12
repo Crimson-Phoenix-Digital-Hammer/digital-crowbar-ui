@@ -1,23 +1,21 @@
-import React, { createElement, useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import './Search.css'
+import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import SearchIcon from '@mui/icons-material/Search'
-import {AddCircleOutlineOutlined, ClearOutlined, DeleteOutlineOutlined} from '@mui/icons-material'
-import { Button, FormControl, FormControlLabel } from '@mui/material'
+import { DeleteOutlineOutlined } from '@mui/icons-material'
+import { Button } from '@mui/material'
 import Checkbox from '@mui/material/Checkbox'
 import { useStateValue } from './StateProvider'
 import { actionTypes } from './reducer'
-import useObfuscate from './services/useObfuscate'
 import { nanoid } from 'nanoid'
+import './Search.css'
 
-function Search({ hideButtons = false }) {
+function Search() {
   const [{}, dispatch] = useStateValue()
   const [term, setTerm] = useState("")
   const [checkboxes, setCheckboxes] = useState([])
   const [data, setData] = useState(null)
-
-
-  // const navigate = useNavigate()
+  const [areCheckboxesLoaded, setAreCheckboxesLoaded] = useState(false);
+  const navigate = useNavigate()
 
   const fetchData = async (searchTerm) => {
     try {
@@ -42,20 +40,11 @@ function Search({ hideButtons = false }) {
 
       const result = await response.json();
       setData(result);
+
     } catch (error) {
-      // Handle any errors that occurred during the request
       console.error(error);
     }
   };
-
-  const search = async (e) => {
-      e.preventDefault()
-
-      setCheckboxes([...checkboxes, { id: nanoid(), choice: term, checked: false }])
-      fetchData(term)
-      console.log(term)
-      setTerm("")
-  }
 
   const handleChange = (checked, i) => {
     let tmp = checkboxes[i];
@@ -73,31 +62,47 @@ function Search({ hideButtons = false }) {
 
   const obfuscate = (e) => {
     e.preventDefault()
-    // console.log("You hit the search button")
-    // let searchTerms = []
 
-    // searchTerms = JSON.parse(localStorage.getItem("Searched Query")) || []
-    // searchTerms.push({id: nanoid(), query: term})
-    
-
-    dispatch({
-        type: actionTypes.SET_SEARCH_TERM,
-        term: term,
-      });
-    console.log("term: ", term);
-    // navigate('/alternatives')
-
-    // localStorage.setItem("Searched Query", JSON.stringify(searchTerms))
+    setCheckboxes([...checkboxes, { id: nanoid(), choice: term, checked: false }])
+    fetchData(term)
+    console.log(term)
+    setTerm("")
   }
+
+  useEffect(() => {
+    if (data) {
+      const opts = data?.obfuscated_queries
+      const newChoices = [...checkboxes, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, checked: false }))]
+      const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
+      setCheckboxes(randomizeChoices)
+
+      setAreCheckboxesLoaded(true);
+    }
+  }, [data])
+
+  const search = (e) => {
+    e.preventDefault()
+    let terms = [...checkboxes.filter((checkbox) => checkbox.checked).map((checkbox) => checkbox.choice)]
+    console.log(terms);
+      terms.forEach((example) => {
+
+          dispatch({
+              type: actionTypes.SET_SEARCH_TERM,
+              term: example
+          })
+
+      })
+      navigate('/search')
+}
     
   return (
     <div className='text-search'>
       <div className="search-header">
-        <form onSubmit={search} className="search">
+        <form onSubmit={obfuscate} className="search">
           <div className="search__input">
               <input type='text' value={term} onChange={(e) => setTerm(e.target.value)} placeholder='Type a term to obfuscate' />
-              <button onClick={search} type="submit"><SearchIcon /></button>
-              {/* <Button onClick={obfuscate} component={Link} to="/alternatives" type="submit"><SearchIcon /></Button> */}
+              <button onClick={obfuscate} type="submit"><SearchIcon /></button>
+              
           </div>
         </form>
       </div>
@@ -111,17 +116,20 @@ function Search({ hideButtons = false }) {
               onChange={() => handleChange(checkbox.checked, i)}
             />
             <span>{checkbox.choice}</span>
-            <Button
+            <button
               className='remove-button'
-              variant="outlined"
-              color="error"
               onClick={() => removeCheckbox(checkbox.id)}
             >
-              Remove <DeleteOutlineOutlined />
-            </Button>
+              <DeleteOutlineOutlined />
+            </button>
           </div>
         ))}
       </div>
+      {areCheckboxesLoaded && (
+        <Button className='search' onClick={search} type='submit' variant='outlined'>
+          Search <SearchIcon />
+        </Button>
+      )}
     </div>
   )
 }

@@ -74,22 +74,52 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  width: 20%;
+  width: 30px;
   margin-left: auto!important;
+  background-color: #fff;
+  color: rgba(244,67, 54, 1);
+  border:1px solid rgba(244,67, 54, 1);
+  box-sizing: border-box;
 }
+.remove-button:hover {
+  background-color: rgba(244,67, 54, 1);
+  color:#fff;
+  border:1px solid rgba(244,67, 54, 1);
+}
+button.search {
+  margin: 10px auto;
+  display: flex;
+  background-color: rgba(239, 106, 54, 1);
+  color: #fff;
+  border: 1px solid rgba(239, 106, 54, 1);
+  padding: 10px 20px;
+  width: 170px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+button.search:hover {
+  background-color: #fff;
+  color: rgba(239, 106, 54, 1);
+  border: 1px solid rgba(239, 106, 54, 1);;
+  cursor: pointer;
+}
+
 .search-terms-container{
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 20px auto;
-  max-width: 550px;
+  margin: 0 auto;
+  max-width: 770px;
+  padding: 25px;
+  min-height:400px;
 }
 .checkbox-group {
   display: flex;
   flex-direction: row;
   align-items: center;
-  max-width: 550px;
-  min-width: 550px;
+  max-width: 770px;
+  min-width: 770px;
 }
 
 @media screen and (max-width: 750px) {

@@ -1,7 +1,9 @@
 
 .searchPage {
   position: relative;
-  min-height: 100vh;
+  min-height: 100%;
+  max-height: 770px;
+  overflow-y: auto;
 }
 .searchPage__header {
     display: flex;
@@ -76,7 +78,12 @@
   }
   
   .searchPage__result {
-    margin: 40px 0;
+    padding: 25px 0;
+    border-bottom: 1px solid #efefef;
+    box-sizing: border;
+  }
+  .searchPage__result:last-child {
+    border-bottom: none;
   }
   
   .searchPage__resultCount {

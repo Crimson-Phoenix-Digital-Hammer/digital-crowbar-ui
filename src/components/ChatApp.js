@@ -10,6 +10,7 @@ function ChatApp() {
   const [input, setInput] = useState('');
   const [responseText, setResponseText] = useState('');
   const [responseMessage, setResponseMessage] = useState([]);
+  const [chatHistory, setChatHistory] = useState([]);
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -57,11 +58,14 @@ function ChatApp() {
 
       // setResponseMessage([...responseMessage, { text: responseData.content, isUser: false }]);
       setMessages((prevMessages)=>[...prevMessages, { text: responseData.content, isUser: false }]);
-      
+      // getChatHistory((prevChatHistory)=>[...prevChatHistory, messages]);
+
+      console.log('Chat history:', chatHistory);
     } catch (error) {
       console.error('Error:', error);
     }
-
+    var scrollable=document.getElementById('message-wrapper');
+    scrollable.scrollTo(0, scrollable.scrollHeight-scrollable.clientHeight);
     setInput('');
   };
 
@@ -86,7 +90,7 @@ function ChatApp() {
 
       </div>
       <div className="chat-container">
-        <div className='messages-wrapper'>
+        <div id='message-wrapper' className='messages-wrapper'>
           <div className='messages'>
             {messages.map((message, index) => (
               <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>

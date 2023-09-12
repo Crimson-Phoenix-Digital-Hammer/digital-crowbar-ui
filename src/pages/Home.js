@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './Home.css'
 import { NavLink, Link } from 'react-router-dom'
 import Search from '../components/Search'
@@ -19,6 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 function Home() {
+  const [chatHistory, setChatHistory] = useState([])
   return (
     // <Container>
     <Grid container spacing={2}>
