@@ -15,6 +15,7 @@ function Search() {
   const [checkboxes, setCheckboxes] = useState([])
   const [data, setData] = useState(null)
   const [areCheckboxesLoaded, setAreCheckboxesLoaded] = useState(false);
+  const [reqCount, setReqCount] = useState(0);
   const navigate = useNavigate()
 
   const fetchData = async (searchTerm) => {
@@ -33,7 +34,10 @@ function Search() {
           }),
         }
       );
-
+      if(response.status === 200) {
+        setReqCount(1);
+        localStorage.setItem('reqCount', [reqCount]);
+      }
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
@@ -125,11 +129,13 @@ function Search() {
           </div>
         ))}
       </div>
-      {areCheckboxesLoaded && (
-        <Button className='search' onClick={search} type='submit' variant='outlined'>
-          Search <SearchIcon />
-        </Button>
-      )}
+      <div className='search-button'>
+        {areCheckboxesLoaded && (
+          <Button className='search' onClick={search} type='submit' variant='outlined'>
+            Search <SearchIcon />
+          </Button>
+        )}
+      </div>
     </div>
   )
 }

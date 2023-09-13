@@ -142,13 +142,13 @@ function GenerateImg() {
                                 )}
                     </div>
                         <label htmlFor='prompt'>Prompt</label>
-                        <input name='prompt' type='text' onChange={(e) => setPrompts(e.target.value)} />
+                        <textarea rows={8} name='prompt' type='text' value={prompts} onChange={(e) => setPrompts(e.target.value)} />
                         
                         <label htmlFor='negative'>Negative</label>
-                        <input name='negative' type='text' onChange={(e) => setNegative(e.target.value)} />
+                        <input name='negative' type='text' value={negative} onChange={(e) => setNegative(e.target.value)} />
                         
                         <label htmlFor='strength'>Strength</label>
-                        <input name='strength' type='text' onChange={(e) => setStrength(e.target.value)} />
+                        <input name='strength' type='text' value={strength} onChange={(e) => setStrength(e.target.value)} />
                         <Button className='search'  onClick={upload}>Generate Image</Button>
                     </div>
                     {/* <div className='prompts'>{term.fileInfo}</div> */}

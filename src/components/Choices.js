@@ -27,15 +27,15 @@ function Choices() {
     const { data } = useObfuscate(term) 
     console.log(data)
     // const opts = data?.obfuscated_queries
-    // useEffect(() => {
-    //     if (data) {
-    //         const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
-    //         const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
-    //         setChoices(randomizeChoices)
-    //         // choices?.sort(() => 0.5 - Math.random());
-    //     }
-    //     // return choices
-    // }, [data])
+    useEffect(() => {
+        if (data) {
+            const newChoices = [...choices, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, done: false }))]
+            const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
+            setChoices(randomizeChoices)
+            // choices?.sort(() => 0.5 - Math.random());
+        }
+        // return choices
+    }, [data])
 
     console.log("Choices: ", choices)
     // const shuffled = choices?.sort(() => 0.5 - Math.random());

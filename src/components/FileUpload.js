@@ -1,15 +1,18 @@
 import React, {useState, useEffect, useRef} from 'react'
 import Dropzone, { useDropzone } from 'react-dropzone'
 import Search from './Search'
-import { Button,  CircularProgress  } from '@mui/material'
+import { Button, CircularProgress, Box, Slider, TextField } from '@mui/material'
 import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined'
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
 import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+// import Box from '@mui/material/Box';
+// import Slider from '@mui/material/Slider';
 import { uploadFile, obfuscateImg } from './services/useUploadService'
 import './ImageSearch.css'
 import { useNavigate } from 'react-router-dom'
 import { actionTypes } from './reducer'
 import { useStateValue } from './StateProvider'
+import { Download } from '@mui/icons-material'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 
 const UploadFiles = () => {
@@ -26,7 +29,8 @@ const UploadFiles = () => {
     const [prompts, setPrompts] = useState(undefined)
     const [negative, setNegative] = useState(undefined)
     const [strength, setStrength] = useState(undefined)
-    const ref = useRef(null)
+    const [reqCount, setReqCount] = useState(0);
+    const imageRef = useRef(null);
 //   const navigate = useNavigate();
     
     // useEffect(() => {
@@ -34,6 +38,34 @@ const UploadFiles = () => {
     //         setFileInfos(response.data)
     //     })
     // }, [])
+
+    const marks = [
+        {
+          value: 0,
+          label: '0',
+        },
+        {
+          value: 0.5,
+          label: '0.5',
+        },
+        {
+          value: 1,
+          label: '1',
+        },
+    ];
+      
+    const valuetext = (value) => {
+        return `${value}`;
+    }
+
+    const handleDownloadClick = () => {
+        if (imageRef.current) {
+        const link = document.createElement('a');
+        link.href = altImg;
+        link.download = 'alternative.jpg'; // You can change the downloaded file name here
+        link.click();
+        }
+    };
 
     const onDrop = (files) => {
         let currentFile = files[0]
@@ -58,9 +90,14 @@ const UploadFiles = () => {
           const response = await uploadFile(currentFile, (event) => {
             setProgress(Math.round((100 * event.loaded) / event.total));
           });
-    
+          if(response.status === 200) {
+            setReqCount(1);
+            localStorage.setItem('Image Uploads', [reqCount]);
+        }
           const files = await response.json();
           setMessage(files.prompts);
+          setPrompts(files.prompts);
+          console.log(files);
         //   let compliments = files.prompts.split(',')
         //   console.log(compliments);
         //   setTimeout(() => {
@@ -107,6 +144,10 @@ const UploadFiles = () => {
           const response = await obfuscateImg(tags, excluded, obfuscated, currentFile, (event) => {
             console.log(Math.round((100 * event.loaded) / event.total));
           });
+          if(response.status === 200) {
+            setReqCount(1);
+            localStorage.setItem('Stable Diffusion', [reqCount]);
+        }
       
           const blob = await response.blob();
           if (blob.size > 0) {
@@ -198,14 +239,43 @@ const UploadFiles = () => {
                                             </div>
                                         )}
                             </div>
-                            <label htmlFor='prompt'>Prompt</label>
-                            <input name='prompt' type='text' onChange={(e) => setPrompts(e.target.value)} />
                             
-                            <label htmlFor='negative'>Negative</label>
-                            <input name='negative' type='text' onChange={(e) => setNegative(e.target.value)} />
+                                <TextField
+                                    className='field'
+                                    label="Prompt"
+                                    multiline
+                                    rows={8}
+                                    onChange={(e) => setPrompts(e.target.value)}
+                                    value={prompts}
+                                />
+
                             
+                                <TextField
+                                    className='field'
+                                    label="Negative"
+                                    multiline
+                                    onChange={(e) => setNegative(e.target.value)}
+                                    value={negative}
+                                />
+                         
+                            <div className='field'>
                             <label htmlFor='strength'>Strength</label>
-                            <input name='strength' type='text' onChange={(e) => setStrength(e.target.value)} />
+                                <Box sx={{ width: 350 }}>
+                                <Slider
+                                    aria-label="Strength"
+                                    defaultValue={0.5}
+                                    getAriaValueText={valuetext}
+                                    step={0.1}
+                                    min={0}
+                                    max={1}
+                                    valueLabelDisplay="auto"
+                                    marks={marks}
+                                    onChange={(e) => setStrength(e.target.value)}
+                                />
+                                </Box>
+                            </div>
+                            
+                           
                         
                         <Button className='search' disabled={!selectedFiles || loading} type='submit' onClick={generateImg}>
                             {loading ? 'Generate Image' : 'Generate Image'}
@@ -223,7 +293,10 @@ const UploadFiles = () => {
                         ) : (
                             <div style={hidden}>
                                 <h1>Alternative Image</h1>
-                                <img src={altImg} alt="alternative"/>
+                                <figure>
+                                    <img ref={imageRef} src={altImg} alt="alternative"/>
+                                    <Button className='search' onClick={handleDownloadClick}><Download /></Button>
+                                </figure>
                             </div>
                         )}
                     </div>

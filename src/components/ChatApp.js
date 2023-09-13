@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
+import ReactDom from 'react-dom'
+import ReactMarkdown from 'react-markdown'
+
 import { Grid } from '@mui/material'
 import { SearchOutlined, NotificationsOutlined, ArrowUpwardOutlined, AttachFileOutlined, KeyboardVoiceOutlined } from '@mui/icons-material'
 import './ChatApp.css'
@@ -11,16 +14,40 @@ function ChatApp() {
   const [responseText, setResponseText] = useState('');
   const [responseMessage, setResponseMessage] = useState([]);
   const [chatHistory, setChatHistory] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [reqCount, setReqCount] = useState([]);
+  // const bottomEl = useRef(null);
   const handleInput = (e) => {
     setInput(e.target.value);
   };
 
+  const AlwaysScrollToBottom = () => {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView());
+    return <div ref={elementRef} />;
+  };
+  const setReq = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('chatGPT')) || [];
+    a.push(data);
+    localStorage.setItem('chatGPT', JSON.stringify(a));
+  }
+  const reqTime = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('chatGPT reqTime')) || [];
+    a.push(data);
+    localStorage.setItem('chatGPT reqTime', JSON.stringify(a));
+  }
   const handleSend = async () => {
     if (input.trim() === '') return;
 
+    setIsLoading(true);
+    let start_time = new Date().getTime();
+
     const newMessage = { text: input, isUser: true };
     setMessages([...messages, newMessage]);
+
+    setInput('');
 
     // Simulate ChatGPT response (you can replace this with actual API calls)
     const url = 'https://api.digital-crowbar.com/obfuscate_text_query/chat';
@@ -46,7 +73,12 @@ function ChatApp() {
         },
         body: JSON.stringify(requestBody),
       });
-
+      if(response.status === 200) {
+        setReq("called")
+        let request_time = new Date().getTime() - start_time;
+        reqTime(request_time)
+        // console.log("Request time: ", request_time);
+      }
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
@@ -56,25 +88,28 @@ function ChatApp() {
       setResponseText(responseData.content);
       console.log('Response text:', responseData.content);
 
-      // setResponseMessage([...responseMessage, { text: responseData.content, isUser: false }]);
+      setResponseMessage([...responseMessage, { role: 'assistant', content: responseData.content }]);
+      requestBody.chat_messages.push({ role: 'assistant', content: responseData.content });
+      setChatHistory((prevChatHistory)=>[...prevChatHistory, { chat_messages: requestBody.chat_messages }])
+      
+      console.log('Chat messages:', requestBody.chat_messages);
+
       setMessages((prevMessages)=>[...prevMessages, { text: responseData.content, isUser: false }]);
       // getChatHistory((prevChatHistory)=>[...prevChatHistory, messages]);
 
       console.log('Chat history:', chatHistory);
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false);
     }
-    var scrollable=document.getElementById('message-wrapper');
-    scrollable.scrollTo(0, scrollable.scrollHeight-scrollable.clientHeight);
+    
     setInput('');
   };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') handleSend();
   };
-
-  // Combine user and bot messages into a single array
-  // const messageList = messages.concat(responseMessage);
 
   return (
     <div className="chat-app">
@@ -93,10 +128,26 @@ function ChatApp() {
         <div id='message-wrapper' className='messages-wrapper'>
           <div className='messages'>
             {messages.map((message, index) => (
-              <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
-                <p>{message.text}</p>
-              </div>
-            ))}
+                <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
+                  <div>
+                    {/* {message.isUser ? `${message.text}` : <pre>{message.text}</pre>} */}
+                    
+                      <ReactMarkdown>
+                        {message.text}
+                      </ReactMarkdown>
+                    
+                    
+                  </div>
+                  <AlwaysScrollToBottom />
+                </div>
+              ))}
+              {isLoading ? (<div className="message bot typing-animation">
+                            <div className="typing-dot" style={{'--delay': '0.2s'}}></div>
+                            <div className="typing-dot" style={{'--delay': '0.3s'}}></div>
+                            <div className="typing-dot" style={{'--delay': '0.4s'}}></div>
+                        </div>) : (
+              <></>
+            )}
           </div>
         </div>
       </div>
