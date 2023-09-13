@@ -35,7 +35,7 @@
 .stats-container .stats-utils .stats-button:hover {
     background-color: #fff;
     color: rgba(239, 106, 54, 1);
-    border: 1px solid rgba(239, 106, 54, 1);;
+    border: 1px solid rgba(239, 106, 54, 1);
     cursor: pointer;
 }
 .stats-container .stats-body {

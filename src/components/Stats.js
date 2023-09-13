@@ -19,44 +19,45 @@ function Stats() {
     const getTotalReqs = () => {
         const getchatGPT = JSON.parse(localStorage.getItem("chatGPT")) || [];
         const getTextSearch = JSON.parse(localStorage.getItem("Text Search")) || [];
-        const getImageSearch = JSON.parse(localStorage.getItem("Image Search")) || [];
+        const getImageUpload = JSON.parse(localStorage.getItem("Image Upload")) || [];
         const getObfuscateText = JSON.parse(localStorage.getItem("Obfuscate Text")) || [];
         const getObfuscateImage = JSON.parse(localStorage.getItem("Obfuscate Image")) || [];
         setStats([...stats, 
             { label: 'chatGPT', value: getchatGPT.length }, 
             { label: 'Text Search', value: getTextSearch.length }, 
-            { label: 'Image Search', value: getImageSearch.length }, 
+            { label: 'Image Search', value: getImageUpload.length }, 
             { label: 'Obfuscate Text', value: getObfuscateText.length }, 
             { label: 'Obfuscate Image', value: getObfuscateImage.length }
         ])
     }
     const getReqTimes = () => {
         const getchatGPT = JSON.parse(localStorage.getItem("chatGPT reqTime")) || [];
-        const getTextSearch = JSON.parse(localStorage.getItem("Text Search ReqTime")) || [];
-        const getImageSearch = JSON.parse(localStorage.getItem("Image Search ReqTime")) || [];
-        const getObfuscateText = JSON.parse(localStorage.getItem("Obfuscate Text ReqTime")) || [];
-        const getObfuscateImage = JSON.parse(localStorage.getItem("Obfuscate Image ReqTime")) || [];
-        console.log("getchatGPT: ", getchatGPT);
+        const getTextSearch = JSON.parse(localStorage.getItem("Text Search reqTime")) || [];
+        const getImageUpload = JSON.parse(localStorage.getItem("Image Upload reqTime")) || [];
+        const getObfuscateText = JSON.parse(localStorage.getItem("Obfuscate Text reqTime")) || [];
+        const getObfuscateImage = JSON.parse(localStorage.getItem("Obfuscate Image reqTime")) || [];
+        // console.log("getchatGPT: ", getchatGPT);
         const chatGPT = getchatGPT.reduce((a, b) => a + b, 0) / getchatGPT.length;
         const textSearch = getTextSearch.reduce((a, b) => a + b, 0) / getTextSearch.length;
-        const imageSearch = getImageSearch.reduce((a, b) => a + b, 0) / getImageSearch.length;
+        const ImageUpload = getImageUpload.reduce((a, b) => a + b, 0) / getImageUpload.length;
         const obfuscateText = getObfuscateText.reduce((a, b) => a + b, 0) / getObfuscateText.length;
         const obfuscateImage = getObfuscateImage.reduce((a, b) => a + b, 0) / getObfuscateImage.length;
-        console.log("chatGPT: ", chatGPT);
+        // console.log("chatGPT: ", chatGPT);
         setReqTimes([...reqTimes, 
             { label: 'chatGPT', value: chatGPT }, 
             { label: 'Text Search', value: textSearch }, 
-            { label: 'Image Search', value: imageSearch }, 
+            { label: 'Image Search', value: ImageUpload }, 
             { label: 'Obfuscate Text', value: obfuscateText }, 
-            { label: 'Obfuscate Image', value: obfuscateImage }
+            { label: 'Obfuscate Image', value: obfuscateImage },
         ])
     }
-    const total = stats.reduce((a, b) => a + b.value, 0);
-    // const average = reqTimes[0].value / 1000;
-    // console.log("average: ", average);
-    
-    // console.log("stats: ", stats);
-    // console.log("Total Api Request: ", total);
+    const calculateAverageReqTime = () => {
+        const totalReqTimes = reqTimes.reduce((acc, curr) => acc + curr.value, 0);
+        const averageReqTime = totalReqTimes / reqTimes.length;
+        return isNaN(averageReqTime) ? 0 : averageReqTime;
+    };
+
+    const total = stats.reduce((a, b) => a + b.value, 0);   
     const pullStats = () => {
         getTotalReqs();
         getReqTimes();
@@ -98,7 +99,7 @@ function Stats() {
         width={400}
         height={200}
         legend={{ hidden: true }} >
-                <PieCenterLabel>{total} Total API Requests</PieCenterLabel>
+                <PieCenterLabel>{total} API Requests</PieCenterLabel>
             </PieChart>
         }
 
@@ -173,6 +174,7 @@ function Stats() {
                         </Grid>
                         <Grid item md={5} xs={12}>
                             <Paper elevation={1} className='stats-paper'>
+                                {/* <span>Avg Req Time: {calculateAverageReqTime()} ms</span> */}
                                 <ReqTimesPieChart />
                             </Paper>
                         </Grid>

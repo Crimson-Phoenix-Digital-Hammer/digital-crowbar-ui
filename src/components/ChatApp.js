@@ -74,7 +74,7 @@ function ChatApp() {
         body: JSON.stringify(requestBody),
       });
       if(response.status === 200) {
-        setReq("called")
+        setReq("APIrequest")
         let request_time = new Date().getTime() - start_time;
         reqTime(request_time)
         // console.log("Request time: ", request_time);
@@ -91,7 +91,7 @@ function ChatApp() {
       setResponseMessage([...responseMessage, { role: 'assistant', content: responseData.content }]);
       requestBody.chat_messages.push({ role: 'assistant', content: responseData.content });
       setChatHistory((prevChatHistory)=>[...prevChatHistory, { chat_messages: requestBody.chat_messages }])
-      
+
       console.log('Chat messages:', requestBody.chat_messages);
 
       setMessages((prevMessages)=>[...prevMessages, { text: responseData.content, isUser: false }]);

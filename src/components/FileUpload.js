@@ -29,7 +29,6 @@ const UploadFiles = () => {
     const [prompts, setPrompts] = useState(undefined)
     const [negative, setNegative] = useState(undefined)
     const [strength, setStrength] = useState(undefined)
-    const [reqCount, setReqCount] = useState(0);
     const imageRef = useRef(null);
 //   const navigate = useNavigate();
     
@@ -39,6 +38,31 @@ const UploadFiles = () => {
     //     })
     // }, [])
 
+    const setReq = (data) => {
+        let a = [];
+        a = JSON.parse(localStorage.getItem('Image Upload')) || [];
+        a.push(data);
+        localStorage.setItem('Image Upload', JSON.stringify(a));
+    }
+    const reqTime = (data) => {
+        let a = [];
+        a = JSON.parse(localStorage.getItem('Image Upload reqTime')) || [];
+        a.push(data);
+        localStorage.setItem('Image Upload reqTime', JSON.stringify(a));
+    }
+    const setReq2 = (data) => {
+        let a = [];
+        a = JSON.parse(localStorage.getItem('Obfuscate Image')) || [];
+        a.push(data);
+        localStorage.setItem('Obfuscate Image', JSON.stringify(a));
+    }
+    const reqTime2 = (data) => {
+        let a = [];
+        a = JSON.parse(localStorage.getItem('Obfuscate Image reqTime')) || [];
+        a.push(data);
+        localStorage.setItem('Obfuscate Image reqTime', JSON.stringify(a));
+    }
+    
     const marks = [
         {
           value: 0,
@@ -85,14 +109,16 @@ const UploadFiles = () => {
         setImage(URL.createObjectURL(currentFile));
     
         setLoading(true); // Set loading to true before starting upload
-    
+        let start_time = new Date().getTime();
+
         try {
           const response = await uploadFile(currentFile, (event) => {
             setProgress(Math.round((100 * event.loaded) / event.total));
           });
           if(response.status === 200) {
-            setReqCount(1);
-            localStorage.setItem('Image Uploads', [reqCount]);
+            setReq("APIrequest")
+            let request_time = new Date().getTime() - start_time;
+            reqTime(request_time)
         }
           const files = await response.json();
           setMessage(files.prompts);
@@ -130,6 +156,7 @@ const UploadFiles = () => {
 
     const [hidden, setHidden] = useState({display: 'none'})
     const generateImg = async () => {
+        let start_time = new Date().getTime();
         try {
             // console.log(ref.current.value);
           setLoading(true)
@@ -145,8 +172,9 @@ const UploadFiles = () => {
             console.log(Math.round((100 * event.loaded) / event.total));
           });
           if(response.status === 200) {
-            setReqCount(1);
-            localStorage.setItem('Stable Diffusion', [reqCount]);
+            setReq2("APIrequest")
+            let request_time = new Date().getTime() - start_time;
+            reqTime2(request_time)
         }
       
           const blob = await response.blob();

@@ -124,6 +124,12 @@ button.send {
     background-color: rgba(239, 106, 54, 1);
     color: #fff;
 }
+button.send:hover {
+    background-color: #fff;
+    color: rgba(239, 106, 54, 1);
+    border: 1px solid rgba(239, 106, 54, 1);
+}
+
 button.attachment, 
 button.voice-chat,
 button.chat-notifications {

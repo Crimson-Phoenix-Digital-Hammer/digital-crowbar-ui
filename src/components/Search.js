@@ -15,10 +15,23 @@ function Search() {
   const [checkboxes, setCheckboxes] = useState([])
   const [data, setData] = useState(null)
   const [areCheckboxesLoaded, setAreCheckboxesLoaded] = useState(false);
-  const [reqCount, setReqCount] = useState(0);
   const navigate = useNavigate()
 
+  const setReq = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('Obfuscate Text')) || [];
+    a.push(data);
+    localStorage.setItem('Obfuscate Text', JSON.stringify(a));
+  }
+  const reqTime = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('Obfuscate Text reqTime')) || [];
+    a.push(data);
+    localStorage.setItem('Obfuscate Text reqTime', JSON.stringify(a));
+  }
+
   const fetchData = async (searchTerm) => {
+    let start_time = new Date().getTime();
     try {
       const response = await fetch(
         'https://api.digital-crowbar.com/obfuscate_text_query',
@@ -35,8 +48,9 @@ function Search() {
         }
       );
       if(response.status === 200) {
-        setReqCount(1);
-        localStorage.setItem('reqCount', [reqCount]);
+        setReq("APIrequest")
+        let request_time = new Date().getTime() - start_time;
+        reqTime(request_time)
       }
       if (!response.ok) {
         throw new Error('Failed to fetch');

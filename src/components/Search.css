@@ -21,8 +21,10 @@
   justify-content: center;
 }
 .search__input button:hover {
-  color: #fff;
-  background-color: rgba(239, 106, 54, 0.8);
+  background-color: #fff;
+    color: rgba(239, 106, 54, 1);
+    border: 1px solid rgba(239, 106, 54, 1);
+    cursor: pointer;
 }
 .search__input > input {
   flex: 1;
