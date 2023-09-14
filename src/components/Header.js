@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import logo from '../digital-crowbar-logo-sm.png'
 import Search from './Search'
 import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined'
 import ImageOutlinedIcon from '@mui/icons-material/ImageOutlined'
@@ -22,13 +21,7 @@ function Header(props) {
         </div>
     ) : (
       <div className="searchPage__header">
-          <Link to="/">
-            <img
-              className="searchPage__logo"
-              src={logo}
-              alt=""
-            />
-          </Link>
+          
   
           <div className="searchPage__headerBody">
             <Search hideButtons />
