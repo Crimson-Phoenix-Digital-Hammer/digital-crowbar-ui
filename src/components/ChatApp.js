@@ -1,22 +1,42 @@
-import React, { useState, useRef, useEffect } from 'react'
-import ReactDom from 'react-dom'
-import ReactMarkdown from 'react-markdown'
+import React, { useState, useRef, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import hljs from 'highlight.js';
+import json from 'highlight.js/lib/languages/json';
+import { SearchOutlined, NotificationsOutlined, ArrowUpwardOutlined, AttachFileOutlined, KeyboardVoiceOutlined } from '@mui/icons-material';
+import './ChatApp.css';
+import 'highlight.js/styles/github.css';
 
-import { Grid } from '@mui/material'
-import { SearchOutlined, NotificationsOutlined, ArrowUpwardOutlined, AttachFileOutlined, KeyboardVoiceOutlined } from '@mui/icons-material'
-import './ChatApp.css'
+hljs.registerLanguage('javascript', json);
 
 function ChatApp() {
   const [messages, setMessages] = useState([
-    { text: 'Hello, how can I help you?', isUser: false },
+    { role: 'assistant', content: 'Please, enter your prompt' },
   ]);
   const [input, setInput] = useState('');
-  const [responseText, setResponseText] = useState('');
-  const [responseMessage, setResponseMessage] = useState([]);
-  const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [reqCount, setReqCount] = useState([]);
-  // const bottomEl = useRef(null);
+
+  // Create a state for chat messages
+  const [chatMessages, setChatMessages] = useState([
+    { role: 'assistant', content: 'Please, enter your search term' },
+  ]);
+
+    // Load messages from localStorage on component mount
+    useEffect(() => {
+        const storedMessages = localStorage.getItem('chatHistory');
+        if (storedMessages) {
+            setMessages(JSON.parse(storedMessages));
+        }
+    }, []);
+
+    // Save messages to localStorage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('chatHistory', JSON.stringify(messages));
+    }, [messages]);
+
+    useEffect(() => {
+      hljs.highlightAll();
+    }, []);
+
   const handleInput = (e) => {
     setInput(e.target.value);
   };
@@ -26,44 +46,31 @@ function ChatApp() {
     useEffect(() => elementRef.current.scrollIntoView());
     return <div ref={elementRef} />;
   };
-  const setReq = (data) => {
-    let a = [];
-    a = JSON.parse(localStorage.getItem('chatGPT')) || [];
-    a.push(data);
-    localStorage.setItem('chatGPT', JSON.stringify(a));
-  }
-  const reqTime = (data) => {
-    let a = [];
-    a = JSON.parse(localStorage.getItem('chatGPT reqTime')) || [];
-    a.push(data);
-    localStorage.setItem('chatGPT reqTime', JSON.stringify(a));
-  }
+
   const handleSend = async () => {
     if (input.trim() === '') return;
 
     setIsLoading(true);
-    let start_time = new Date().getTime();
 
-    const newMessage = { text: input, isUser: true };
+    const newMessage = { role: 'user',content: input};
     setMessages([...messages, newMessage]);
-
     setInput('');
-
+    
     // Simulate ChatGPT response (you can replace this with actual API calls)
     const url = 'https://api.digital-crowbar.com/obfuscate_text_query/chat';
 
     const requestBody = {
       system_message:
-        'The user with present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query are. Respond with two elements, an array of facts in JSON form, an array of strategies in JSON form.',
-        chat_messages: [
+        'The user will present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query is. Respond with two elements, an array of facts in JSON form with Markdown, an array of strategies in JSON form with Markdown.',
+      chat_messages: [
+        ...messages,
         {
           role: 'user',
-          content: newMessage.text,
+          content: newMessage.content,
         },
-        // You can add more chat messages here if needed
       ],
     };
-
+    // requestBody.chat_messages.push(messages);
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -73,38 +80,28 @@ function ChatApp() {
         },
         body: JSON.stringify(requestBody),
       });
-      if(response.status === 200) {
-        setReq("APIrequest")
-        let request_time = new Date().getTime() - start_time;
-        reqTime(request_time)
-        // console.log("Request time: ", request_time);
+
+      if (response.status === 200) {
+        // Handle successful API request
       }
+
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
 
       const responseData = await response.json();
-      // Handle the response data as needed, e.g., update state
-      setResponseText(responseData.content);
-      console.log('Response text:', responseData.content);
+      const responseMessage = {
+        role: 'assistant',
+        content: responseData.content,
+      };
 
-      setResponseMessage([...responseMessage, { role: 'assistant', content: responseData.content }]);
-      requestBody.chat_messages.push({ role: 'assistant', content: responseData.content });
-      setChatHistory((prevChatHistory)=>[...prevChatHistory, { chat_messages: requestBody.chat_messages }])
-
-      console.log('Chat messages:', requestBody.chat_messages);
-
-      setMessages((prevMessages)=>[...prevMessages, { text: responseData.content, isUser: false }]);
-      // getChatHistory((prevChatHistory)=>[...prevChatHistory, messages]);
-
-      console.log('Chat history:', chatHistory);
+      // Update the messages state for display
+      setMessages((prevMessages) => [...prevMessages, responseMessage]);
     } catch (error) {
       console.error('Error:', error);
     } finally {
       setIsLoading(false);
     }
-    
-    setInput('');
   };
 
   const handleKeyPress = (e) => {
@@ -118,9 +115,9 @@ function ChatApp() {
         <div className="chat-utils">
           <div className="chat-search-messages">
             <SearchOutlined />
-            <input type="text" placeholder="Search in messages" />
+            <input type="text" placeholder="Search in messages" disabled />
           </div>
-          <button className="chat-notifications"><NotificationsOutlined /></button>
+          <button className="chat-notifications" disabled><NotificationsOutlined /></button>
         </div>
 
       </div>
@@ -128,12 +125,12 @@ function ChatApp() {
         <div id='message-wrapper' className='messages-wrapper'>
           <div className='messages'>
             {messages.map((message, index) => (
-                <div id={index} key={index} className={`message ${message.isUser ? 'user' : 'bot'}`}>
+                <div id={index} key={index} className={`message ${message.role == 'user' ? 'user' : 'bot'}`}>
                   <div>
                     {/* {message.isUser ? `${message.text}` : <pre>{message.text}</pre>} */}
                     
                       <ReactMarkdown>
-                        {message.text}
+                        {message.content}
                       </ReactMarkdown>
                     
                     
@@ -152,8 +149,8 @@ function ChatApp() {
         </div>
       </div>
       <div className='chat-footer'>
-        <button className='attachment'><AttachFileOutlined /></button>
-        <button className='voice-chat'><KeyboardVoiceOutlined /></button>
+        {/* <button className='attachment'><AttachFileOutlined /></button>
+        <button className='voice-chat'><KeyboardVoiceOutlined /></button> */}
         <div className="input-container">
           <input
             type="text"

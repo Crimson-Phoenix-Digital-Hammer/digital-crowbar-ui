@@ -80,8 +80,8 @@ function Search() {
 
   const obfuscate = (e) => {
     e.preventDefault()
-
-    setCheckboxes([...checkboxes, { id: nanoid(), choice: term, checked: false }])
+    
+    setCheckboxes([...checkboxes, { id: nanoid(), choice: term, checked: false, original: true }])
     fetchData(term)
     console.log(term)
     setTerm("")
@@ -90,7 +90,7 @@ function Search() {
   useEffect(() => {
     if (data) {
       const opts = data?.obfuscated_queries
-      const newChoices = [...checkboxes, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, checked: false }))]
+      const newChoices = [...checkboxes, ...data.obfuscated_queries.map((choice) => ({ id: nanoid(), choice, checked: false, original: false }))]
       const randomizeChoices = newChoices.sort(() => 0.5 - Math.random())
       setCheckboxes(randomizeChoices)
 
@@ -124,25 +124,26 @@ function Search() {
           </div>
         </form>
       </div>
-      <div className="search-terms-container">
-        
-      {checkboxes.map((checkbox, i) => (
-          <div className='checkbox-group' key={checkbox.id}>
-            <Checkbox
-              checked={checkbox.checked}
-              value={checkbox.choice}
-              onChange={() => handleChange(checkbox.checked, i)}
-            />
-            <span>{checkbox.choice}</span>
-            <button
-              className='remove-button'
-              onClick={() => removeCheckbox(checkbox.id)}
-            >
-              <DeleteOutlineOutlined />
-            </button>
-          </div>
-        ))}
-      </div>
+      {areCheckboxesLoaded && (
+        <div className="search-terms-container">
+          {checkboxes.map((checkbox, i) => (
+            <div className={`checkbox-group ${checkbox.original == true ? 'og' : '' }`} key={checkbox.id}>
+              <Checkbox
+                checked={checkbox.checked}
+                value={checkbox.choice}
+                onChange={() => handleChange(checkbox.checked, i)}
+              />
+              <span>{checkbox.choice}</span>
+              <button
+                className='remove-button'
+                onClick={() => removeCheckbox(checkbox.id)}
+              >
+                <DeleteOutlineOutlined />
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
       <div className='search-button'>
         {areCheckboxesLoaded && (
           <Button className='search' onClick={search} type='submit' variant='outlined'>

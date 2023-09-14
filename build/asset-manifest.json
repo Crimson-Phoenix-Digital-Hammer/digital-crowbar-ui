@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.3b61fc11.css",
-    "main.js": "/static/js/main.2348014c.js",
+    "main.css": "/static/css/main.46deff25.css",
+    "main.js": "/static/js/main.fc419562.js",
     "static/js/787.1076499d.chunk.js": "/static/js/787.1076499d.chunk.js",
     "static/media/crimson-phoenix-logo-footer.png": "/static/media/crimson-phoenix-logo-footer.6940928888aec0216fd3.png",
     "index.html": "/index.html",
-    "main.3b61fc11.css.map": "/static/css/main.3b61fc11.css.map",
-    "main.2348014c.js.map": "/static/js/main.2348014c.js.map",
+    "main.46deff25.css.map": "/static/css/main.46deff25.css.map",
+    "main.fc419562.js.map": "/static/js/main.fc419562.js.map",
     "787.1076499d.chunk.js.map": "/static/js/787.1076499d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b61fc11.css",
-    "static/js/main.2348014c.js"
+    "static/css/main.46deff25.css",
+    "static/js/main.fc419562.js"
   ]
 }
