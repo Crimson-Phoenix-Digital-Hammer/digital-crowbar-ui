@@ -4,9 +4,9 @@ import hljs from 'highlight.js';
 import json from 'highlight.js/lib/languages/json';
 import { SearchOutlined, NotificationsOutlined, ArrowUpwardOutlined, AttachFileOutlined, KeyboardVoiceOutlined } from '@mui/icons-material';
 import './ChatApp.css';
-import 'highlight.js/styles/github.css';
+import 'highlight.js/styles/github-dark.css';
 
-hljs.registerLanguage('javascript', json);
+hljs.registerLanguage('json', json);
 
 function ChatApp() {
   const [messages, setMessages] = useState([
