@@ -215,6 +215,16 @@ button.chat-notifications {
     background-color: rgba(239, 106, 54, 1);
     color:#fff;
 }
+.clear-history button.clear{
+    background-color: transparent;
+    border: 1px solid rgba(239, 106, 54, 1);
+    color:rgba(239, 106, 54, 1);
+    width:100%;
+}
+.clear-history button.clear:hover {
+    background-color: rgba(239, 106, 54, 1);
+    color:#fff;
+}
 :root {
     --text-color: #FFFFFF;
     --icon-color: #ACACBE;

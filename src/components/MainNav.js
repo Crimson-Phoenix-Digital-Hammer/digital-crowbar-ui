@@ -37,6 +37,11 @@ function MainNav() {
         setSystemMessage(systemPrompt);
         handleClose(); // close the modal after saving
     }
+    const handleClearChat = () => {
+        localStorage.removeItem('chatHistory');
+        handleClose(); // close the modal after clearing chat
+        window.location.reload(false);
+    }
 
     return (
         <div className='main-menu'>
@@ -76,14 +81,14 @@ function MainNav() {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Box>
-                        <Typography style={{ fontFamily:"Space Grotesk", marginBottom: '20px', color: '#fff' }} id="modal-modal-title" variant="h6" component="h2">
+                    <Box style={{}}>
+                        <Typography style={{ fontFamily: "Space Grotesk", marginBottom: '20px', color: '#fff' }} id="modal-modal-title" variant="h6" component="h2">
                             Settings
                         </Typography>
-                        <Divider light={true} />
+                        
                     </Box>
                     <TextField
-                        style={{ fontFamily: "Space Grotesk", marginBottom: '20px', backgroundColor: 'rgba(32,33,35,0.15)'}}
+                        style={{ fontFamily: "Space Grotesk", marginBottom: '20px', backgroundColor: 'rgba(32,33,35,0.15)' }}
                         fullWidth
                         className='field system-message'
                         label="System Message"
@@ -95,6 +100,12 @@ function MainNav() {
                     <Box className='settings-buttons' sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
                         <Button className='cancel' onClick={handleClose}>Cancel</Button>
                         <Button className='save' onClick={handleSaveSystemMessage}>Save</Button>
+                    </Box>
+                    <Box className='clear-history' sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', marginTop:'20px', paddingTop: '15px', width:'100%', borderTop:'1px solid rgba(255,255,255, 0.25)' }}>
+                        <Typography style={{ fontFamily: "Space Grotesk", marginBottom: '10px', color: '#fff' }} id="modal-modal-title-2" variant="h6" component="h4">
+                            Chat History
+                        </Typography>   
+                        <Button className='clear' onClick={handleClearChat}>Clear History</Button>
                     </Box>
                 </Box>
             </Modal>
