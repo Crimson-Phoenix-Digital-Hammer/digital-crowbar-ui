@@ -1,3 +1,4 @@
+
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import hljs from 'highlight.js';
@@ -20,22 +21,43 @@ function ChatApp() {
     { role: 'assistant', content: 'Please, enter your search term' },
   ]);
 
-    // Load messages from localStorage on component mount
-    useEffect(() => {
-        const storedMessages = localStorage.getItem('chatHistory');
-        if (storedMessages) {
-            setMessages(JSON.parse(storedMessages));
-        }
-    }, []);
+  // Create a state for the system prompt
+  const [systemPrompt, setSystemPrompt] = useState('');
 
-    // Save messages to localStorage whenever it changes
-    useEffect(() => {
-        localStorage.setItem('chatHistory', JSON.stringify(messages));
-    }, [messages]);
 
-    useEffect(() => {
-      hljs.highlightAll();
-    }, []);
+  // Load messages from localStorage on component mount
+  useEffect(() => {
+    const storedMessages = localStorage.getItem('chatHistory');
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    }
+  }, []);
+
+  // Save messages to localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('chatHistory', JSON.stringify(messages));
+  }, [messages]);
+
+  useEffect(() => {
+    hljs.highlightAll();
+  }, []);
+
+  const setReq = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('Image Upload')) || [];
+    a.push(data);
+    localStorage.setItem('Image Upload', JSON.stringify(a));
+  }
+  const reqTime = (data) => {
+    let a = [];
+    a = JSON.parse(localStorage.getItem('Image Upload reqTime')) || [];
+    a.push(data);
+    localStorage.setItem('Image Upload reqTime', JSON.stringify(a));
+  }
+  const getSystemMessage = JSON.parse(localStorage.getItem('System Message')) || 'The user will present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query is. Respond with two elements, a JSON Object of facts using Markdown, a JSON Object of strategies using Markdown.';
+  const setSystemMessage = (data) => {
+      localStorage.setItem('System Message', JSON.stringify(data));
+  }
 
   const handleInput = (e) => {
     setInput(e.target.value);
@@ -52,16 +74,16 @@ function ChatApp() {
 
     setIsLoading(true);
 
-    const newMessage = { role: 'user',content: input};
+    const newMessage = { role: 'user', content: input };
     setMessages([...messages, newMessage]);
     setInput('');
-    
+
     // Simulate ChatGPT response (you can replace this with actual API calls)
     const url = 'https://api.digital-crowbar.com/obfuscate_text_query/chat';
 
     const requestBody = {
       system_message:
-        'The user will present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query is. Respond with two elements, an array of facts in JSON form with Markdown, an array of strategies in JSON form with Markdown.',
+      getSystemMessage,
       chat_messages: [
         ...messages,
         {
@@ -70,7 +92,9 @@ function ChatApp() {
         },
       ],
     };
+    setSystemMessage(requestBody.system_message)
     // requestBody.chat_messages.push(messages);
+    let start_time = new Date().getTime();
     try {
       const response = await fetch(url, {
         method: 'POST',
@@ -83,6 +107,9 @@ function ChatApp() {
 
       if (response.status === 200) {
         // Handle successful API request
+        setReq("APIrequest")
+        let request_time = new Date().getTime() - start_time;
+        reqTime(request_time)
       }
 
       if (!response.ok) {
@@ -125,24 +152,24 @@ function ChatApp() {
         <div id='message-wrapper' className='messages-wrapper'>
           <div className='messages'>
             {messages.map((message, index) => (
-                <div id={index} key={index} className={`message ${message.role == 'user' ? 'user' : 'bot'}`}>
-                  <div>
-                    {/* {message.isUser ? `${message.text}` : <pre>{message.text}</pre>} */}
-                    
-                      <ReactMarkdown>
-                        {message.content}
-                      </ReactMarkdown>
-                    
-                    
-                  </div>
-                  <AlwaysScrollToBottom />
+              <div id={index} key={index} className={`message ${message.role == 'user' ? 'user' : 'bot'}`}>
+                <div className='hljs'>
+                  {/* {message.isUser ? `${message.text}` : <pre>{message.text}</pre>} */}
+
+                  <ReactMarkdown>
+                    {message.content}
+                  </ReactMarkdown>
+
+
                 </div>
-              ))}
-              {isLoading ? (<div className="message bot typing-animation">
-                            <div className="typing-dot" style={{'--delay': '0.2s'}}></div>
-                            <div className="typing-dot" style={{'--delay': '0.3s'}}></div>
-                            <div className="typing-dot" style={{'--delay': '0.4s'}}></div>
-                        </div>) : (
+                <AlwaysScrollToBottom />
+              </div>
+            ))}
+            {isLoading ? (<div className="message bot typing-animation">
+              <div className="typing-dot" style={{ '--delay': '0.2s' }}></div>
+              <div className="typing-dot" style={{ '--delay': '0.3s' }}></div>
+              <div className="typing-dot" style={{ '--delay': '0.4s' }}></div>
+            </div>) : (
               <></>
             )}
           </div>

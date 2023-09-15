@@ -6,7 +6,8 @@
 .chat-header,
 .chat-footer,
 .history-header,
-.history-footer {
+.history-footer,
+.faqs-header {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -15,7 +16,7 @@
 .history-sidebar {
     background-color: rgb(240,240,240);
 }
-.chat-header, .history-header, .search-header {
+.chat-header, .history-header, .search-header, .faqs-header{
     padding: 20px 25px 15px;
     border-bottom: 1px solid #ccc;
     align-items: center;
@@ -80,7 +81,7 @@
     background-color: rgb(240,240,240);
     color: rgb(128,128,128);
 }
-.chat-container {
+.chat-container, .faqs-body {
     margin-top: auto;
     height: 90%;
     padding: 25px 25px 5px;
@@ -96,7 +97,11 @@
     /* justify-content: flex-end; */
     height:70vh;
 }
-.chat-container .messages pre  code.hljs {
+.chat-container .messages .message .hljs {
+    background-color: transparent;
+    color: inherit;
+}
+.chat-container .messages .hljs pre  code {
     background-color: #121315;
 }
 .chat-container .messages pre {
@@ -113,13 +118,13 @@
     overflow-x: auto;
     color: #fff;
 }
-.chat-container .messages pre code .hljs-attr {
+.chat-container .messages .message .hljs pre code .hljs-attr {
     color: rgba(239, 106, 54, 1);
 }
-.chat-container .messages pre code .hljs-punctuation {
+.chat-container .messages .message .hljs pre code .hljs-punctuation {
     color: #fff;
 }
-.chat-container .messages pre code .hljs-string {
+.chat-container .messages .message .hljs pre code .hljs-string {
     color: #fff;
 }
 .chat-container .message.bot ol {
@@ -143,7 +148,7 @@
     max-width: 66%;
     margin: 10px 0;
 }
-.chat-container .message.bot{
+.chat-container .message.bot {
     border-radius: 10px 10px 10px 0;
     background-color: #ccc;
     margin-right:auto;
@@ -181,6 +186,35 @@ button.chat-notifications {
     height: 46px;
 }
 
+.system-message textarea{
+    color:#fff;
+}
+
+.settings-buttons button {
+    padding: 5px 20px;
+    width: 30%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    color: #fff;
+}
+.settings-buttons button.cancel{
+    margin-right:10px;
+    background-color:transparent;
+    border: 1px solid rgb(240,240,240);
+}
+.settings-buttons button.cancel:hover{
+    background-color: #fff;
+    color:rgba(32,33,35,1);
+}
+.settings-buttons button.save{
+    background-color: transparent;
+    border: 1px solid rgba(239, 106, 54, 1);
+    color:rgba(239, 106, 54, 1);
+}
+.settings-buttons button.save:hover {
+    background-color: rgba(239, 106, 54, 1);
+    color:#fff;
+}
 :root {
     --text-color: #FFFFFF;
     --icon-color: #ACACBE;

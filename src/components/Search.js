@@ -125,25 +125,26 @@ function Search() {
         </form>
       </div>
       {areCheckboxesLoaded && (
-        <div className="search-terms-container">
-          {checkboxes.map((checkbox, i) => (
-            <div className={`checkbox-group ${checkbox.original == true ? 'og' : '' }`} key={checkbox.id}>
-              <Checkbox
-                checked={checkbox.checked}
-                value={checkbox.choice}
-                onChange={() => handleChange(checkbox.checked, i)}
-              />
-              <span>{checkbox.choice}</span>
-              <button
-                className='remove-button'
-                onClick={() => removeCheckbox(checkbox.id)}
-              >
-                <DeleteOutlineOutlined />
-              </button>
-            </div>
-          ))}
-        </div>
-      )}
+      <div className="search-terms-container">
+        {checkboxes.map((checkbox, i) => (
+          <div className={`checkbox-group ${checkbox.original == true ? 'og' : '' }`} key={checkbox.id}>
+            <Checkbox
+              checked={checkbox.checked}
+              value={checkbox.choice}
+              onChange={() => handleChange(checkbox.checked, i)}
+            />
+            <span>{checkbox.choice}</span>
+            <button
+              className='remove-button'
+              onClick={() => removeCheckbox(checkbox.id)}
+            >
+              <DeleteOutlineOutlined />
+            </button>
+          </div>
+        ))}
+      </div>
+    )}
+
       <div className='search-button'>
         {areCheckboxesLoaded && (
           <Button className='search' onClick={search} type='submit' variant='outlined'>

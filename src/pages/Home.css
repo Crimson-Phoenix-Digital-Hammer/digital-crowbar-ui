@@ -47,43 +47,58 @@ nav ul li {
   margin-bottom:10px;
 }
 nav ul li a svg, 
-.sidebar-footer a svg {
+.sidebar-footer a svg,
+.sidebar-footer button svg {
   color:rgba(255, 255, 255, 0.5);
 }
-nav ul li a {
+nav ul li a ,
+.sidebar-footer button {
   padding: 0 15px;
   display: flex;
   flex-direction: row;
   align-items: center;
   font-size: 1.1rem;
 }
-nav ul li a span {
+nav ul li a span{
   margin-left: 10px;
 }
 nav ul li a:hover, 
-.sidebar-footer a:hover {
+.sidebar-footer a:hover,
+.sidebar-footer button:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
 }
 nav ul li a:hover svg, 
-.sidebar-footer a:hover svg{
+.sidebar-footer a:hover svg,
+.sidebar-footer button:hover svg{
   color:rgba(239, 106, 54, 1);
 }
-nav ul li a.active {
+nav ul li a.active,
+.sidebar-footer button.active {
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
 }
-nav ul li a.active svg{
+nav ul li a.active svg,
+.sidebar-footer button.active svg{
   color:rgba(239, 106, 54, 1);
 }
 .sidebar-footer {
   margin-top: auto;
+  padding: 0 20px;
+  position: relative;
 }
-.sidebar-footer a {
+.sidebar-footer a,
+.sidebar-footer button {
   padding: 20px 25px;
   margin-top:5px;
 }
-.sidebar-footer a svg {
+.sidebar-footer button{
+  width:100%;
+  text-transform:none;
+  color: #FFF;
+}
+.sidebar-footer a svg, 
+.sidebar-footer button svg {
   margin-left: auto;
 }
 
