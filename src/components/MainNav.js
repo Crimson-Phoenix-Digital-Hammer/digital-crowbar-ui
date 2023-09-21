@@ -3,7 +3,7 @@ import { NavLink, Link } from 'react-router-dom'
 import { Button, Divider, Modal, Popover, Typography } from '@mui/material'
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { ModeCommentOutlined, NotesOutlined, PhotoOutlined, BarChartOutlined, SettingsOutlined, HelpCenterOutlined, LogoutOutlined, MoreHoriz } from '@mui/icons-material'
+import { ModeCommentOutlined, NotesOutlined, PhotoOutlined, BarChartOutlined, SettingsOutlined, HelpCenterOutlined, LogoutOutlined, MoreHoriz, RecentActors } from '@mui/icons-material'
 import logo from '../assets/images/dc-logo.png'
 
 const style = {
@@ -60,6 +60,9 @@ function MainNav() {
                         <NavLink to="/image-search"><PhotoOutlined fontSize='large' /><span>Image Search</span></NavLink>
                     </li>
                     <li>
+                        <NavLink to="/personas"><RecentActors fontSize='large' /><span>New Personas</span></NavLink>
+                    </li>
+                    <li>
                         <NavLink to="/stats"><BarChartOutlined fontSize='large' /><span>Statistics</span></NavLink>
                     </li>
                     <li>
@@ -88,10 +91,10 @@ function MainNav() {
                         
                     </Box>
                     <TextField
-                        style={{ fontFamily: "Space Grotesk", marginBottom: '20px', backgroundColor: 'rgba(32,33,35,0.15)' }}
+                        style={{ fontFamily: "Space Grotesk", marginBottom: '20px', backgroundColor: 'rgba(32,33,35,0.15)'}}
                         fullWidth
                         className='field system-message'
-                        label="System Message"
+                        label="Chat Instructions"
                         multiline
                         rows={8}
                         onChange={handleChange}

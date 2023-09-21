@@ -69,6 +69,8 @@ function ChatApp() {
     return <div ref={elementRef} />;
   };
 
+  const [markdown, setMarkdown] = useState('');
+
   const handleSend = async () => {
     if (input.trim() === '') return;
 
@@ -117,6 +119,28 @@ function ChatApp() {
       }
 
       const responseData = await response.json();
+      
+      // var encode = function (str) {
+      //   let encoded = str.join('```json');
+      //   return encoded;
+      // }
+      // const seeData = encode(responseData.content);
+      // console.log(seeData);
+
+      console.log(responseData.content);
+
+      // setMarkdown(<ReactMarkdown className='get-md2json'>
+      //   {responseData.content}
+      // </ReactMarkdown>);
+
+      // Create a new message object
+      // const el = document.querySelector('.get-md2json');
+      
+      //   const json = el.innerHTML;
+      //   const obj = JSON.parse(json);
+      //   console.log(obj);
+      
+
       const responseMessage = {
         role: 'assistant',
         content: responseData.content,

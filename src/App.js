@@ -9,6 +9,7 @@ import AppTools from './pages/Tools';
 import GenerateImg from './components/GenerateImg';
 import Stats from './components/Stats';
 import Faqs from './components/Faqs';
+import Personas from './pages/Personas';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/recent-searches" element={<RecentSearches />} />
           <Route path="/image-search" element={<ImgSearch />} />
           <Route path="/image-search/generate-image" element={<GenerateImg />} />
+          <Route path="/personas" element={<Personas />} />
           <Route path="/stats" element={<Stats />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/" element={<Home />} />

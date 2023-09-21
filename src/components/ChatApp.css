@@ -7,6 +7,7 @@
 .chat-footer,
 .history-header,
 .history-footer,
+.persona-header,
 .faqs-header {
     display: flex;
     flex-direction: row;
@@ -16,7 +17,7 @@
 .history-sidebar {
     background-color: rgb(240,240,240);
 }
-.chat-header, .history-header, .search-header, .faqs-header{
+.chat-header, .history-header, .search-header, .faqs-header, .persona-header {
     padding: 20px 25px 15px;
     border-bottom: 1px solid #ccc;
     align-items: center;
@@ -81,7 +82,7 @@
     background-color: rgb(240,240,240);
     color: rgb(128,128,128);
 }
-.chat-container, .faqs-body {
+.chat-container, .faqs-body, .persona-body {
     margin-top: auto;
     height: 90%;
     padding: 25px 25px 5px;
