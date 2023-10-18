@@ -1,31 +1,53 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import SearchPage from './pages/SearchPage';
-import Alternatives from './pages/Alternatives';
-import RecentSearches from './pages/RecentSearches';
-import ImgSearch from './pages/ImageSearch';
-import AppTools from './pages/Tools';
-import GenerateImg from './components/GenerateImg';
-import Stats from './components/Stats';
-import Faqs from './components/Faqs';
-import Personas from './pages/Personas';
+import Home from './pages/Home/Home';
+import SearchResults from './pages/TextSearch/SearchResults';
+import Alternatives from './pages/TextSearch/TextSearch';
+import ImgSearch from './pages/ImageSearch/ImageSearch';
+import Stats from './pages/Stats/Stats';
+import Faqs from './pages/Updates/Faqs';
+import Personas from './pages/Personas/Personas';
 
 function App() {
+  const routes = [
+    {
+      path: '/',
+      element: <Home />,
+    },
+    {
+      path: '/search',
+      element: <SearchResults />,
+    },
+    {
+      path: '/text-search',
+      element: <Alternatives />,
+    },
+    {
+      path: '/image-search',
+      element: <ImgSearch />,
+    },
+    {
+      path: '/stats',
+      element: <Stats />,
+    },
+    {
+      path: '/updates-and-faq',
+      element: <Faqs />,
+    },
+    {
+      path: '/personas',
+      element: <Personas />,
+    },
+  ];
+  
   return (
+    
     <div className="app">
       <Router>
         <Routes>
-          <Route path="/tools" element={<AppTools />} />
-          <Route path="/updates-and-faq" element={<Faqs />} />
-          <Route path="/text-search" element={<Alternatives />} />
-          <Route path="/recent-searches" element={<RecentSearches />} />
-          <Route path="/image-search" element={<ImgSearch />} />
-          <Route path="/image-search/generate-image" element={<GenerateImg />} />
-          <Route path="/personas" element={<Personas />} />
-          <Route path="/stats" element={<Stats />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/" element={<Home />} />
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
         </Routes>
       </Router>
     </div>

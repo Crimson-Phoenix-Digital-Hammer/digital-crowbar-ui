@@ -20,10 +20,13 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
+    "react-linkify": "^1.0.0-alpha",
     "react-markdown": "^8.0.7",
     "react-new-window": "^1.0.1",
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
+    "react-sidebar-pro": "^3.1.1",
+    "react-syntax-highlighter": "^15.5.0",
     "styled-components": "^6.0.6",
     "web-vitals": "^2.1.4"
   },
