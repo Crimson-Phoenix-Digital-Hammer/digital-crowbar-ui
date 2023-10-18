@@ -3,6 +3,7 @@
     flex-direction: column;
     height: 100%;
 }
+
 .chat-header,
 .chat-footer,
 .history-header,
@@ -16,35 +17,43 @@
     box-sizing: border-box;
     height: 92px;
 }
+
 .search-header {
     height: 92px;
     box-sizing: border-box;
 }
+
 .history-sidebar {
     display: flex;
     flex-direction: column;
-    background-color: rgb(240,240,240);
+    background-color: rgb(240, 240, 240);
     height: 96.25vh;
-    box-shadow: inset 6px 0 6px -1px rgba(0,0,0,0.15);
+    box-shadow: inset 6px 0 6px -1px rgba(0, 0, 0, 0.15);
 }
+
 .history-header h2 {
     margin-right: 10px
 }
+
 .history-header button {
     width: 50%;
 }
+
 .history-header .MuiBadge-badge {
     background-color: rgba(239, 106, 54, 1);
     color: #fff;
 }
+
 .history-container {
     padding: 20px 15px;
 }
+
 .history-container ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
+
 .history-container li {
     display: flex;
     flex-direction: row;
@@ -54,6 +63,7 @@
     background-color: transparent;
     cursor: pointer;
 }
+
 .history-container li:hover {
     background-color: rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -69,25 +79,31 @@
     text-align: left;
     /* cursor: pointer; */
 }
+
 .history-container .convo-btn svg {
     margin-right: 10px;
 }
+
 .history-container .convo-btn:hover {
     background-color: rgba(0, 0, 0, 0);
     border-radius: 8px;
 }
+
 .history-container li:hover button {
     background-color: transparent;
 }
+
 .history-container li:hover .remove-convo {
     color: rgba(239, 106, 54, 1);
     /* background-color: rgba(239, 106, 54, .5);
     padding: 10px; */
 }
+
 .history-footer {
     margin-top: auto;
     padding: 20px 15px;
 }
+
 .history-footer button {
     display: flex;
     flex-direction: row;
@@ -97,55 +113,69 @@
     width: 100%;
     background-color: rgba(255, 255, 255, 1);
     border: 1px solid rgba(255, 255, 255, 1);
-    box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.15);
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
 }
+
 .history-footer button:hover {
     background-color: rgba(239, 106, 54, 1);
     border: 1px solid rgba(239, 106, 54, 1);
     color: #fff;
 }
+
 .history-footer button svg {
     color: rgba(239, 106, 54, 1);
 }
+
 .history-footer button:hover svg {
     color: rgba(255, 255, 255, 1);
 }
-.chat-header, .history-header, .search-header, .faqs-header, .stats-header, .persona-header {
+
+.chat-header,
+.history-header,
+.search-header,
+.faqs-header,
+.stats-header,
+.persona-header {
     padding: 20px 25px 15px;
     border-bottom: 1px solid #ccc;
     align-items: center;
 }
-.chat-header h2, 
+
+.chat-header h2,
 .history-header h2,
-.faqs-header h2, 
+.faqs-header h2,
 .persona-header h2 {
     font-weight: 500;
     font-size: 18px;
 }
+
 .chat-header .chat-utils {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-left:auto;
+    margin-left: auto;
     width: 40%;
     justify-content: flex-end;
     /* opacity: 35%;
     cursor:not-allowed; */
 }
-.chat-header .chat-utils:hover > * {
-    cursor:not-allowed;
+
+.chat-header .chat-utils:hover>* {
+    cursor: not-allowed;
 }
+
 .chat-header .chat-utils .chat-search-messages {
     padding: 10px;
-    border: 1px solid rgb(240,240,240);
+    border: 1px solid rgb(240, 240, 240);
     border-radius: 5px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    width:80%;
-    background-color: rgb(240,240,240);
-    color: rgb(128,128,128);
+    width: 80%;
+    background-color: rgb(240, 240, 240);
+    color: rgb(128, 128, 128);
 }
+
 .chat-header .chat-utils .chat-search-messages input {
     width: 100%;
     font-size: 1rem;
@@ -154,53 +184,64 @@
     border: none;
     margin-left: 10px;
     background-color: transparent;
-    color: rgb(128,128,128);
-    cursor:not-allowed;
+    color: rgb(128, 128, 128);
+    cursor: not-allowed;
 }
+
 .chat-footer {
     padding: 25px 25px 30px;
     /* border-top: 1px solid #ccc; */
     justify-content: space-between;
 }
+
 .chat-footer .input-container {
     width: 94%;
-    color: rgb(128,128,128);
+    color: rgb(128, 128, 128);
 
 }
+
 .chat-footer .input-container input {
     width: 97%;
     padding: 13px;
-    border: 1px solid rgb(240,240,240);
+    border: 1px solid rgb(240, 240, 240);
     border-radius: 5px;
     outline: none;
     font-size: 1rem;
     box-sizing: border-box;
-    background-color: rgb(240,240,240);
-    color: rgb(128,128,128);
+    background-color: rgb(240, 240, 240);
+    color: rgb(128, 128, 128);
 }
-.chat-container, .faqs-body, .persona-body {
+
+.chat-container,
+.faqs-body,
+.persona-body {
     margin-top: auto;
     height: 90%;
     padding: 25px 25px 5px;
     overflow-y: auto;
 }
+
 .chat-container .messages-wrapper {
-    height:100%;
+    height: 100%;
     /* overflow-y: auto; */
 }
+
 .chat-container .messages {
     display: flex;
     flex-direction: column;
     /* justify-content: flex-end; */
-    height:70vh;
+    height: 70vh;
 }
+
 .chat-container .messages .message .hljs {
     background-color: transparent;
     color: inherit;
 }
-.chat-container .messages .hljs pre  code {
+
+.chat-container .messages .hljs pre code {
     background-color: #121315;
 }
+
 .chat-container .messages pre {
     text-wrap: wrap;
     background-color: #121315;
@@ -215,18 +256,23 @@
     overflow-x: auto;
     color: #fff;
 }
+
 .chat-container .messages .message .hljs pre code .hljs-attr {
     color: rgba(239, 106, 54, 1);
 }
+
 .chat-container .messages .message .hljs pre code .hljs-punctuation {
     color: #fff;
 }
+
 .chat-container .messages .message .hljs pre code .hljs-string {
     color: #fff;
 }
+
 .chat-container .messages .message.bot:not(:first-of-type) .hljs p {
     margin-bottom: 1rem;
 }
+
 .chat-container .message.bot ol {
     background-color: #0a0a0a;
     padding: 11px 5px;
@@ -235,61 +281,92 @@
     color: #fff;
     font-size: .75rem;
     border-radius: 3px 3px 0 0;
-    border-bottom: 1px solid rgba(255,255,255, .25);
+    border-bottom: 1px solid rgba(255, 255, 255, .25);
     box-sizing: border-box;
 }
 
 .chat-container::-webkit-scrollbar {
     width: 5px;
 }
+
 .chat-container .message {
     padding: 15px 20px;
     display: flex;
+    flex-direction: column;
     max-width: 66%;
     margin: 10px 0;
-    word-break: break-all;
+    word-break: break-word;
 }
+
 .chat-container .message.bot {
     border-radius: 10px 10px 10px 0;
     background-color: #ccc;
-    margin-right:auto;
+    margin-right: auto;
 }
-.chat-container .message.user{
+
+.chat-container .message.user {
     border-radius: 10px 10px 0 10px;
     background-color: rgba(239, 106, 54, 1);
     color: #fff;
     margin-left: auto;
 }
+.chat-container .message .copy-code {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    align-items: center;
+    color: white;
+    justify-content: space-between;
+    padding: 5px 15px;
+    border-radius: 5px 5px 0 0;
+}
+
+.chat-container .message .copy-code button.copy {
+    width: auto;
+    color: white;
+    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: transparent;
+    border: none;
+}
+.chat-container .message .copy-code button.copy svg {
+    margin-right: 10px;
+}
+
 button {
     cursor: pointer;
-    width:46px;
+    width: 46px;
     border: none;
     border-radius: 5px;
-    color: rgb(128,128,128);
+    color: rgb(128, 128, 128);
 }
+
 button.send {
     background-color: rgba(239, 106, 54, 1);
     color: #fff;
     height: 46px;
 }
+
 button.send:hover {
     background-color: #fff;
     color: rgba(239, 106, 54, 1);
     border: 1px solid rgba(239, 106, 54, 1);
 }
 
-button.attachment, 
+button.attachment,
 button.voice-chat,
 button.chat-notifications {
-    background-color: rgb(240,240,240);
+    background-color: rgb(240, 240, 240);
 }
 
 button.chat-notifications {
     height: 46px;
 }
 
-.system-message textarea{
-    color:#fff;
+.system-message textarea {
+    color: #fff;
 }
 
 .settings-buttons button {
@@ -299,34 +376,41 @@ button.chat-notifications {
     border-radius: 5px;
     color: #fff;
 }
-.settings-buttons button.cancel{
-    margin-right:10px;
-    background-color:transparent;
-    border: 1px solid rgb(240,240,240);
+
+.settings-buttons button.cancel {
+    margin-right: 10px;
+    background-color: transparent;
+    border: 1px solid rgb(240, 240, 240);
 }
-.settings-buttons button.cancel:hover{
+
+.settings-buttons button.cancel:hover {
     background-color: #fff;
-    color:rgba(32,33,35,1);
+    color: rgba(32, 33, 35, 1);
 }
-.settings-buttons button.save{
+
+.settings-buttons button.save {
     background-color: transparent;
     border: 1px solid rgba(239, 106, 54, 1);
-    color:rgba(239, 106, 54, 1);
+    color: rgba(239, 106, 54, 1);
 }
+
 .settings-buttons button.save:hover {
     background-color: rgba(239, 106, 54, 1);
-    color:#fff;
+    color: #fff;
 }
-.clear-history button.clear{
+
+.clear-history button.clear {
     background-color: transparent;
     border: 1px solid rgba(239, 106, 54, 1);
-    color:rgba(239, 106, 54, 1);
-    width:100%;
+    color: rgba(239, 106, 54, 1);
+    width: 100%;
 }
+
 .clear-history button.clear:hover {
     background-color: rgba(239, 106, 54, 1);
-    color:#fff;
+    color: #fff;
 }
+
 :root {
     --text-color: #FFFFFF;
     --icon-color: #ACACBE;
@@ -336,8 +420,9 @@ button.chat-notifications {
     --incoming-chat-bg: #444654;
     --outgoing-chat-border: #343541;
     --incoming-chat-border: #444654;
-  }
-  .light-mode {
+}
+
+.light-mode {
     --text-color: #343541;
     --icon-color: #a9a9bc;
     --icon-hover-bg: #f1f1f3;
@@ -346,32 +431,40 @@ button.chat-notifications {
     --incoming-chat-bg: #F7F7F8;
     --outgoing-chat-border: #FFFFFF;
     --incoming-chat-border: #D9D9E3;
-  }
+}
+
 .typing-animation {
     padding-left: 25px;
     display: inline-flex;
-  }
-  .typing-animation .typing-dot {
+}
+
+.typing-animation .typing-dot {
     height: 7px;
     width: 7px;
     border-radius: 50%;
     margin: 0 3px;
     opacity: 0.7;
-    background: rgb(128,128,128);
+    background: rgb(128, 128, 128);
     animation: animateDots 1.5s var(--delay) ease-in-out infinite;
-  }
-  .typing-animation .typing-dot:first-child {
+}
+
+.typing-animation .typing-dot:first-child {
     margin-left: 0;
-  }
-  @keyframes animateDots {
-    0%,44% {
-      transform: translateY(0px);
-    }
-    28% {
-      opacity: 0.4;
-      transform: translateY(-6px);
-    }
+}
+
+@keyframes animateDots {
+
+    0%,
     44% {
-      opacity: 0.2;
+        transform: translateY(0px);
     }
-  }
+
+    28% {
+        opacity: 0.4;
+        transform: translateY(-6px);
+    }
+
+    44% {
+        opacity: 0.2;
+    }
+}

@@ -11,6 +11,7 @@ import { defaultMessage } from '../../models/populate';
 import PersonaSelect from '../Personas/components/PersonaSelect';
 import { db } from '../../models/db';
 import ReactLinkify from 'react-linkify';
+import CopyCode from './CopyCode';
 
 hljs.registerLanguage('json', json);
 
@@ -42,7 +43,7 @@ const fetchData = async (url, body) => {
     body: JSON.stringify(body),
   });
 
-  if(response.status === 200) {
+  if (response.status === 200) {
     let apiCalls = JSON.parse(localStorage.getItem('API Calls')) || 0;
     apiCalls++;
     localStorage.setItem('API Calls', JSON.stringify(apiCalls));
@@ -79,6 +80,12 @@ function ChatApp() {
     }
   }, [messages]);
 
+  const AlwaysScrollToBottom = () => {
+    const elementRef = useRef();
+    useEffect(() => elementRef.current.scrollIntoView());
+    return <div ref={elementRef} />;
+  };
+
   const getSystemMessage = JSON.parse(localStorage.getItem('System Message')) || defaultMessage;
 
   const handleInput = (e) => setInput(e.target.value);
@@ -106,7 +113,7 @@ function ChatApp() {
       let content = responseData.content;
       try {
         JSON.parse(content);
-        
+
         // Wrap the JSON in a markdown code block
         content = `\`\`\`json\n${content}\n\`\`\``;
       } catch (e) { }
@@ -146,19 +153,26 @@ function ChatApp() {
         </div>
       </div>
       <div className="chat-container">
-        <div id='message-wrapper' className='messages-wrapper' ref={messageWrapperRef}>
+        <div id='message-wrapper' className='messages-wrapper'>
           <div className='messages'>
             {messages.map((message, index) => (
               <div id={index} key={index} className={`message ${message.role === 'user' ? 'user' : 'bot'}`}>
+                {message.content.startsWith('```') && <CopyCode content={message.content} index={index} />}
                 <div className='hljs links'>
                   {message.role === 'assistant' && message.content.startsWith('https://') ? (
-                    <ReactLinkify componentDecorator={linkDecorator}>
-                      {message.content}
-                    </ReactLinkify>
+                    <>
+                      <ReactLinkify componentDecorator={linkDecorator}>
+                        {message.content}
+                      </ReactLinkify>
+                      <AlwaysScrollToBottom />
+                    </>
                   ) : (
-                    <ReactMarkdown>
-                      {message.content}
-                    </ReactMarkdown>
+                    <>
+                      <ReactMarkdown>
+                        {message.content}
+                      </ReactMarkdown>
+                      <AlwaysScrollToBottom />
+                    </>
                   )}
                 </div>
               </div>

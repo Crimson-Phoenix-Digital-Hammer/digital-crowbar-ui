@@ -1,21 +1,19 @@
-// import { nanoid } from 'nanoid'
 import React from 'react'
 import { Badge, IconButton } from '@mui/material'
 import { db } from '../../models/db'
 import { useLiveQuery } from 'dexie-react-hooks'
-import { ModeCommentOutlined, ChatBubbleOutline, DeleteOutline, Clear  } from '@mui/icons-material'
+import { ModeCommentOutlined, ChatBubbleOutline, DeleteOutline, Clear } from '@mui/icons-material'
 import useLocalStorage from '../../hooks/useLocalStorage'
 
 const truncate = (str, n) => {
-    if(str.length <= n) return str;
+    if (str.length <= n) return str;
     return str.slice(0, n - 3) + '...';
 }
 
 export const saveConvo = async () => {
     const data = await db.chat_history.toArray();
-    
-    const userMessage = data[0].content;
-    const chatTitle = truncate(userMessage, 20);
+
+    const chatTitle = data[0].content;
     console.log(chatTitle);
 
     await db.conversations.add(
@@ -45,14 +43,14 @@ function ChatHistory() {
     return (
         <div className='history-sidebar'>
             <div className='history-header'>
-            <h2>Chat History</h2>
+                <h2>Chat History</h2>
                 <Badge
                     badgeContent={convos?.length}
                     max={50}
                     anchorOrigin={{
                         vertical: 'top',
                         horizontal: 'right',
-                    }} 
+                    }}
                     color="primary">
                     <ChatBubbleOutline />
                 </Badge>
@@ -60,7 +58,7 @@ function ChatHistory() {
             <div className='history-container'>
                 {convos?.map((convo, index) => (
                     <ul key={index}>
-                        <li><button className='convo-btn' size='medium' variant='outlined' onClick={() => updateChat(convo.id)}><ModeCommentOutlined /> {convo.title}</button> <IconButton className='remove-convo' onClick={() => removeChat(convo.id)}><Clear /></IconButton></li>
+                        <li><button title={convo.title} className='convo-btn' size='medium' variant='outlined' onClick={() => updateChat(convo.id)}><ModeCommentOutlined /> {truncate(convo.title, 20)}</button> <IconButton className='remove-convo' onClick={() => removeChat(convo.id)}><Clear /></IconButton></li>
                     </ul>
                 ))}
             </div>

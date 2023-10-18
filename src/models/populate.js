@@ -31,7 +31,7 @@ const initialPersonas = [
     },
 ]
 
-export const defaultMessage = 'The user will present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what my original query is. Respond with two elements, a JSON Object of facts using Markdown, a JSON Object of strategies using Markdown.'
+export const defaultMessage = 'Act like an expert in obfuscation using synsets when you respond. The user will present an initial query. Create a two-step process. 1. Find facts about the query. 2. Use those facts to develop a strategy to make a search without the search engine knowing what the original query is. Respond with one element containing the search strategies, do not include any explanations, only provide a RFC8259 compliant JSON response  following this format without deviation. {"strategy1": "description", "strategy2": "description", "strategy3": "description", "strategy4": "description", "strategy5": "description"}'
 
 export const FAQs = [
     {
