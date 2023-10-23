@@ -46,6 +46,8 @@
 
 .history-container {
     padding: 20px 15px;
+    height:75%;
+    overflow-y: auto;
 }
 
 .history-container ul {
@@ -273,17 +275,17 @@
     margin-bottom: 1rem;
 }
 
-.chat-container .message.bot ol {
+/* .chat-container .message.bot ol {
     background-color: #0a0a0a;
     padding: 11px 5px;
     padding-inline-start: 25px;
-    /* list-style-type: none; */
+    list-style-type: none;
     color: #fff;
     font-size: .75rem;
     border-radius: 3px 3px 0 0;
     border-bottom: 1px solid rgba(255, 255, 255, .25);
     box-sizing: border-box;
-}
+} */
 
 .chat-container::-webkit-scrollbar {
     width: 5px;
@@ -296,6 +298,10 @@
     max-width: 66%;
     margin: 10px 0;
     word-break: break-word;
+}
+
+.chat-container .message.bot.typing-animation {
+    flex-direction: row;
 }
 
 .chat-container .message.bot {

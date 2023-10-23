@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import { CheckOutlined, ContentPasteOutlined } from '@mui/icons-material'
 import clipboardCopy from 'clipboard-copy'
 
-
-
 function detectLanguage(content) {
     const match = content.match(/```(\w+)/)
     return match ? match[1] : null

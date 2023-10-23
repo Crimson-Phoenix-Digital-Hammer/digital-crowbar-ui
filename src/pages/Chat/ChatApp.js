@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
 import hljs from 'highlight.js';
@@ -6,7 +5,6 @@ import json from 'highlight.js/lib/languages/json';
 import { ArrowUpwardOutlined } from '@mui/icons-material';
 import './ChatApp.css';
 import 'highlight.js/styles/github-dark.css';
-import useLocalStorage from '../../hooks/useLocalStorage';
 import { defaultMessage } from '../../models/populate';
 import PersonaSelect from '../Personas/components/PersonaSelect';
 import { db } from '../../models/db';
@@ -60,8 +58,6 @@ function ChatApp() {
   const [messages, setMessages] = useState([{ role: 'assistant', content: 'Please, enter your prompt' }]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [apiCalls, setApiCalls] = useState(0);
-  const messageWrapperRef = useRef(null);
 
   // Load messages from localStorage on component mount
   useEffect(() => {
@@ -75,17 +71,16 @@ function ChatApp() {
   useEffect(() => {
     localStorage.setItem('chatHistory', JSON.stringify(messages));
     hljs.highlightAll();
-    if (messageWrapperRef.current) {
-      messageWrapperRef.current.scrollTop = messageWrapperRef.current.scrollHeight;
-    }
   }, [messages]);
 
+  // Scroll to the bottom of the chat window
   const AlwaysScrollToBottom = () => {
     const elementRef = useRef();
     useEffect(() => elementRef.current.scrollIntoView());
     return <div ref={elementRef} />;
   };
 
+  // Get the system message from localStorage
   const getSystemMessage = JSON.parse(localStorage.getItem('System Message')) || defaultMessage;
 
   const handleInput = (e) => setInput(e.target.value);
@@ -143,6 +138,15 @@ function ChatApp() {
       {text}
     </a>
   );
+  const ResponseLoading = () => (
+    <>
+      <div className="message bot typing-animation">
+        <div className="typing-dot" style={{ '--delay': '0.2s' }}></div>
+        <div className="typing-dot" style={{ '--delay': '0.3s' }}></div>
+        <div className="typing-dot" style={{ '--delay': '0.4s' }}></div>
+      </div>
+    </>
+  )
 
   return (
     <div className="chat-app">
@@ -177,13 +181,7 @@ function ChatApp() {
                 </div>
               </div>
             ))}
-            {isLoading ? (<div className="message bot typing-animation">
-              <div className="typing-dot" style={{ '--delay': '0.2s' }}></div>
-              <div className="typing-dot" style={{ '--delay': '0.3s' }}></div>
-              <div className="typing-dot" style={{ '--delay': '0.4s' }}></div>
-            </div>) : (
-              <></>
-            )}
+            {isLoading ? (<ResponseLoading />) : (<></>)}
           </div>
         </div>
       </div>

@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
-import ChatApp from '../Chat/ChatApp'
 import { Grid } from '@mui/material'
-// import QueryHistory from '../Chat/QueryHistory'
-import MainNav from '../../components/MainNav';
-import ChatHistory from '../Chat/ChatHistory';
+import ChatApp from '../Chat/ChatApp'
+import MainNav from '../../components/MainNav'
+import ChatHistory from '../Chat/ChatHistory'
 
 function Home() {
-  const [systemPrompt, setSystemPrompt] = useState('');
+  const [systemPrompt, setSystemPrompt] = useState('')
 
   const setSysPrompt = (newPrompt) => {
-    setSystemPrompt(newPrompt);
+    setSystemPrompt(newPrompt)
   }
 
   return (
@@ -22,9 +21,9 @@ function Home() {
           <ChatApp systemPrompt={systemPrompt} />
         </div>
       </Grid>
-      <Grid item md={2} xs={12} style={{paddingLeft: "0px", height: "95vh"}}>
-        <ChatHistory />
-      </Grid>
+        <Grid item md={2} xs={12} style={{ paddingLeft: "0px", height: "95vh" }}>
+          <ChatHistory />
+        </Grid>
     </Grid>
   );
 }

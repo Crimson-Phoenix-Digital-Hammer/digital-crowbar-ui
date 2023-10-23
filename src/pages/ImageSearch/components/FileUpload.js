@@ -1,25 +1,17 @@
 import React, { useState, useRef } from 'react'
 import Dropzone from 'react-dropzone'
 import { Button, CircularProgress, Box, Slider, TextField } from '@mui/material'
-import PhotoLibraryOutlinedIcon from '@mui/icons-material/PhotoLibraryOutlined'
-import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined'
-import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
+import {PhotoLibraryOutlined, ClearOutlined, FileUploadOutlined, Download} from '@mui/icons-material'
 import { uploadFile, obfuscateImg } from '../../../hooks/useUploadService'
 import '../css/ImageSearch.css'
-import { useStateValue } from '../../../utils/StateProvider'
-import { Download } from '@mui/icons-material'
-import useLocalStorage from '../../../hooks/useLocalStorage'
 
 const UploadFiles = () => {
-    const [{ }, dispatch] = useStateValue();
-    const { setItem } = useLocalStorage();
     const [view, setView] = useState('initialView')
     const [selectedFiles, setSelectedFiles] = useState(undefined);
     const [currentFile, setCurrentFile] = useState(undefined);
     const [progress, setProgress] = useState(0);
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false); // Added loading state
-    const [data, setData] = useState([]);
     const [image, setImage] = useState();
     const [altImg, setAltImg] = useState(undefined)
     const [prompts, setPrompts] = useState(undefined)
@@ -143,9 +135,9 @@ const UploadFiles = () => {
                                     <div className='selected-file'>
                                         <div className='img-container'>
                                             <div className='selected-file__remove' onClick={() => setSelectedFiles(undefined)}>
-                                                <ClearOutlinedIcon fontSize='large' />
+                                                <ClearOutlined fontSize='large' />
                                             </div>
-                                            <img src={image} />
+                                            <img src={image} alt='uploaded' />
                                         </div>
                                         {selectedFiles && selectedFiles[0].name}
                                     </div>) : (
@@ -158,7 +150,7 @@ const UploadFiles = () => {
                                                 </div>
                                             ) : (
                                                 <>
-                                                    <PhotoLibraryOutlinedIcon fontSize='large' />
+                                                    <PhotoLibraryOutlined fontSize='large' />
                                                     <p>Drag an image here or <span name='open-files'>upload a file</span></p>
                                                 </>
                                             )}
@@ -168,7 +160,7 @@ const UploadFiles = () => {
                             </div>
                             <aside className='selected-file-wrapper'>
                                 <Button className='search' disabled={!selectedFiles || loading} onClick={upload} variant='outlined'>
-                                    {loading ? <CircularProgress size={24} /> : <><span>Upload Image</span><FileUploadOutlinedIcon /></>}
+                                    {loading ? <CircularProgress size={24} /> : <><span>Upload Image</span><FileUploadOutlined /></>}
                                 </Button>
                             </aside>
 
@@ -190,14 +182,14 @@ const UploadFiles = () => {
                                             <div className='selected-file'>
                                                 <div className='img-container'>
                                                     <div className='selected-file__remove' onClick={() => setSelectedFiles(undefined)}>
-                                                        <ClearOutlinedIcon fontSize='large' />
+                                                        <ClearOutlined fontSize='large' />
                                                     </div>
-                                                    <img src={image} />
+                                                    <img src={image} alt='generated' />
                                                 </div>
                                                 {/* { selectedFiles && selectedFiles[0].name} */}
                                             </div>) : (
                                             <div className='img-upload'>
-                                                <PhotoLibraryOutlinedIcon fontSize='large' />
+                                                <PhotoLibraryOutlined fontSize='large' />
                                                 <p>Drag an image here or <span name='open-files'>upload a file</span></p>
                                             </div>
                                         )}

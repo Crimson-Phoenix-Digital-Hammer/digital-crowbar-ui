@@ -8,7 +8,6 @@ const useObfuscate = (term) => {
         await fetch(
           'https://api.digital-crowbar.com/obfuscate_text_query', {
             method: 'POST',
-            // credentials: 'include',
             headers: {
                 'accept': 'application/json',
                 'Content-Type': 'application/json'
