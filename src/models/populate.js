@@ -11,7 +11,7 @@ const initialPersonas = [
     },
     {
         name: 'ChatGPT',
-        system_message: null,
+        system_message: '',
     },
     {
         name: 'Multivac',
