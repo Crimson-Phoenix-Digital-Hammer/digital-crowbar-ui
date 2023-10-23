@@ -9,14 +9,46 @@ import { db } from '../../models/db'
 
 function Personas() {
     const [userInput, setUserInput] = useState('')
+    const [editMode, setEditMode] = useState(false);
+    const [currentPersonaId, setCurrentPersonaId] = useState(null);
     const allPersonas = useLiveQuery(() => db.personas.toArray(), [])
 
     const addPersona = async () => {
         const personaFields = {
             name: userInput.name,
             system_message: userInput.system_message,
+        };
+
+        if (editMode) {
+            await db.personas.update(currentPersonaId, personaFields);
+        } else {
+            await db.personas.add(personaFields);
         }
-        await db.personas.add(personaFields)
+    }
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setUserInput(prev => ({ ...prev, [name]: value }))
+    }
+
+    const handlePersonaSave = (e) => {
+        addPersona();
+        setEditMode(false);
+        setCurrentPersonaId(null);
+        setUserInput('');
+        if (e.key === 'Enter') handlePersonaSave(e);
+    }
+
+    const handlePersonaDelete = (id) => db.personas.delete(id)
+
+    const handlePersonaEdit = async (id) => {
+        const persona = await db.personas.get(id);
+        setUserInput({
+            name: persona.name,
+            system_message: persona.system_message,
+        });
+        setEditMode(true);
+        setCurrentPersonaId(id);
     }
 
     const columns = [
@@ -35,30 +67,6 @@ function Personas() {
         }
     ]
 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setUserInput(prev => ({ ...prev, [name]: value }))
-    }
-
-    const handlePersonaSave = (e) => {
-
-        addPersona();
-        if (e.key === 'Enter') handlePersonaSave(e);
-        setUserInput('')
-    }
-
-    const handlePersonaDelete = (id) => db.personas.delete(id)
-
-    const handlePersonaEdit = async (id) => {
-        const persona = await db.personas.get(id)
-        setUserInput(
-            {
-                name: persona.name,
-                system_message: persona.system_message
-            }
-        )
-    }
-
     return (
         <div>
             <Grid container spacing={2}>
@@ -72,16 +80,19 @@ function Personas() {
                         </div>
                         <div className='persona-body'>
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-                                <TextField style={{ marginBottom: '20px' }}
+                                <TextField
+                                    style={{ marginBottom: '20px' }}
                                     fullWidth
                                     className='persona-name'
                                     label="Persona Name"
                                     variant="outlined"
                                     name="name"
                                     onChange={(e) => handleChange(e)}
-                                // value={userInput.name}
+                                    value={userInput.name || ''}
                                 />
-                                <TextField style={{ marginBottom: '20px' }}
+
+                                <TextField
+                                    style={{ marginBottom: '20px' }}
                                     fullWidth
                                     className='persona-system-message'
                                     multiline
@@ -90,8 +101,9 @@ function Personas() {
                                     variant="outlined"
                                     name="system_message"
                                     onChange={(e) => handleChange(e)}
-                                // value={userInput.system_message}
+                                    value={userInput.system_message || ''}
                                 />
+
                                 <Button variant='contained' onClick={(e) => handlePersonaSave(e)} disableElevation style={{ alignSelf: 'flex-start' }}>Save</Button>
                             </Box>
                             <Box sx={{ height: 400, width: '100%', marginTop: '40px' }}>
